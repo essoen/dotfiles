@@ -1,0 +1,8 @@
+Host underwood
+	HostName svorstol.com
+	User esso
+
+Host norkart-azure
+	HostName broytekart.cloudapp.net
+	User broytekart
+	Port 50002

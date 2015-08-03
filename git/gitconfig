@@ -1,0 +1,15 @@
+[user]
+	name = Stein-Otto Svorstøl
+	email = steinotto.svorstol@gmail.com
+[push]
+	default = simple
+
+[color]
+	branch = auto
+  	diff = auto
+  	interactive = auto
+  	status = auto
+  	ui = auto
+
+[core]
+	excludefile = /home/esso/dotfiles/git/gitignore
