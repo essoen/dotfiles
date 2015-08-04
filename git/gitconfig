@@ -13,3 +13,6 @@
 
 [core]
 	excludefile = /home/esso/dotfiles/git/gitignore
+
+[alias]
+	track = "!git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`"
