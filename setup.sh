@@ -9,3 +9,7 @@ echo "Created symbolic link for .bash_aliases"
 rm $HOME/.gitconfig
 ln -s $PWD/git/gitconfig $HOME/.gitconfig
 echo "Created symbolic link for .gitconfig"
+
+rm $HOME/.ssh/config
+ln -s $PWD/ssh/config $HOME/.ssh/config
+echo "Created symbolic link for .ssh/config"
