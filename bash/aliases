@@ -8,6 +8,8 @@ alias hallo="touch "
 alias gc="git commit "
 alias gpull="git pull "
 alias gs="git status "
+alias ga="git add "
+alias gaa="ga --all "
 alias gpush="git push "
 alias g="git grep "
 

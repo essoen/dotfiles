@@ -16,3 +16,5 @@
 
 [alias]
 	track = "!git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`"
+[url "https://github.com/"]
+	insteadOf = git://github.com/
