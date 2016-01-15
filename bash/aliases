@@ -1,5 +1,5 @@
 alias cls="clear"
-alias apti="sudo apt-get install "
+alias apti="sudo apt-get install -y "
 alias upgrade="sudo apt-get update && sudo apt-get upgrade"
 alias update="sudo apt-get update"
 alias hadet="rm "
