@@ -13,6 +13,8 @@ alias gaa="ga --all "
 alias gpush="git push "
 alias g="git grep "
 
+alias drives="sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL"
+
 alias httpserver='python -m SimpleHTTPServer'
 
 get_json(){
