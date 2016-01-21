@@ -16,5 +16,6 @@
 
 [alias]
 	track = "!git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`"
+	yolo = !git add -A && git commit -m \"$(curl -s whatthecommit.com/index.txt)\"
 [url "https://github.com/"]
 	insteadOf = git://github.com/
