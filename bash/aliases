@@ -1,5 +1,5 @@
 alias cls="clear"
-alias apti="sudo apt-get install "
+alias apti="sudo apt-get install -y "
 alias upgrade="sudo apt-get update && sudo apt-get upgrade"
 alias update="sudo apt-get update"
 alias hadet="rm "
@@ -12,6 +12,8 @@ alias ga="git add "
 alias gaa="ga --all "
 alias gpush="git push "
 alias g="git grep "
+
+alias drives="sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL"
 
 alias httpserver='python -m SimpleHTTPServer'
 
