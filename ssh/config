@@ -1,6 +1,7 @@
 Host underwood
 	HostName svorstol.com
 	User esso
+
 Host crowdshelf
 	HostName crowdshelf.xyz
 	User crowdshelf
@@ -9,3 +10,7 @@ Host norkart-azure
 	HostName broytekart.cloudapp.net
 	User broytekart
 	Port 50002
+
+Host norkart-svv
+        HostName 188.166.8.38
+        User svv
