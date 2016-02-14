@@ -2,10 +2,6 @@ Host underwood
 	HostName svorstol.com
 	User esso
 
-Host crowdshelf
-	HostName crowdshelf.xyz
-	User crowdshelf
-
 Host norkart-azure
 	HostName broytekart.cloudapp.net
 	User broytekart
