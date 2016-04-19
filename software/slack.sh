@@ -1,2 +1,4 @@
-wget https://slack-ssb-updates.global.ssl.fastly.net/linux_releases/slack-desktop-1.2.6-amd64.deb
-dpkg -i "slack-desktop-1.2.6-amd64.deb"
+PACKAGE="slack-desktop-2.0.3-amd64.deb"
+wget "https://downloads.slack-edge.com/linux_releases/$PACKAGE"
+sudo dpkg -i $PACKAGE
+rm $PACKAGE
