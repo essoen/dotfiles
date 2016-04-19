@@ -8,7 +8,5 @@ sh setup.sh
 To install software:
 
 ```shell
-cd software
-sh nonsudo-setup.sh
-sudo sh sudo-setup.sh
+sh software/setup.sh
 ```
