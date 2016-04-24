@@ -35,7 +35,7 @@ xclip -sel clip < ~/.ssh/id_rsa.pub
 
 echo "Now paste your clipboard as a new key on GitHub."
 
-# sudo sh idea-software.sh
+sh idea-software.sh
 sh spotify.sh
 sh slack.sh
 
