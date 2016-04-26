@@ -12,7 +12,7 @@ sudo apt-get install -y vagrant
 curl -fsSL https://get.docker.com/ | sh
 sudo usermod -aG docker ${USER}
 curl -L https://github.com/docker/compose/releases/download/1.7.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-$ chmod +x /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
 
 #NVM
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
@@ -38,4 +38,5 @@ echo "Now paste your clipboard as a new key on GitHub."
 sh idea-software.sh
 sh spotify.sh
 sh slack.sh
+sh atom.sh
 
