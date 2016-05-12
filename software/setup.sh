@@ -37,6 +37,7 @@ echo "Now paste your clipboard as a new key on GitHub."
 
 sh idea-software.sh
 sh spotify.sh
+sh nuvolaplayer.sh
 sh slack.sh
 sh atom.sh
 
