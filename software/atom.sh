@@ -1,2 +1,3 @@
-wget "https://atom.io/download/deb"
-sudo dpkg -i "atom-amd64.deb"
+PACKAGE_NAME="atom-amd64.deb"
+wget "https://atom.io/download/deb" -O $PACKAGE_NAME
+sudo dpkg -i $PACKAGE_NAME
