@@ -17,6 +17,17 @@ alias drives="sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL"
 
 alias httpserver='python -m SimpleHTTPServer'
 
+touchpad_control() {
+    if [[ $@ == "--enable" ]]; then
+        command xinput set-prop 14 "Device Enabled" 1
+    elif [[ $@ == "--disable" ]]; then    
+        command xinput set-prop 14 "Device Enabled" 0
+    else
+        echo "Not recognized command. Use --enable or --disable."
+    fi
+}
+alias touchpad=touchpad_control
+
 get_json(){
     curl -s "$1" | python -m json.tool
 }
