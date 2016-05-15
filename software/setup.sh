@@ -1,3 +1,7 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 echo "Starting installation"
 echo "Installing tools like git, curl,  vim, nano, ftp, ssh xclip and tar."
 # Install applications
@@ -45,12 +49,11 @@ xclip -sel clip < ~/.ssh/id_rsa.pub
 echo "Now paste your clipboard as a new key on GitHub."
 
 echo "Installing Google Drive"
-sh drive.sh
+sh $DIR/drive.sh
 
 echo "Installing idea-software, Atom, and Nuvola Player 3" 
-sh idea-software.sh
-#sh spotify.sh
-sh nuvolaplayer.sh
-sh slack.sh
-sh atom.sh
+sh $DIR/idea-software.sh
+sh $DIR/nuvolaplayer.sh
+sh $DIR/slack.sh
+sh $DIR/atom.sh
 
