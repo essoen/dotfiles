@@ -5,7 +5,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "Starting installation"
 echo "Installing tools like git, curl,  vim, nano, ftp, ssh xclip and tar."
 # Install applications
-sudo apt-get install -y gnome terminator curl git vim nano ftp ssh xclip tar
+sudo apt-get install -y terminator curl git vim nano ftp ssh xclip tar
 echo "Installing and activating firewall"
 sudo apt-get install ufw
 sudo ufw enable 
