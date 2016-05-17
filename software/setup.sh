@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/software"
 
 echo "Starting installation"
 echo "Installing tools like git, curl,  vim, nano, ftp, ssh xclip and tar."
@@ -57,3 +57,7 @@ sh $DIR/nuvolaplayer.sh
 sh $DIR/slack.sh
 sh $DIR/atom.sh
 
+echo "Set dotfiles-repo to use SSH"
+git remote set-url origin git@github.com:essoen/dotfiles.git
+
+echo "We're done!"
