@@ -15,6 +15,7 @@ alias g="git grep "
 
 alias dpull="drive pull --no-prompt "
 alias dpush="drive push "
+alias dsync="dpull && dpush"
 
 alias drives="sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL"
 
