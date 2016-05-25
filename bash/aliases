@@ -15,7 +15,7 @@ alias g="git grep "
 
 alias dpull="drive pull --no-prompt "
 alias dpush="drive push "
-alias dsync="dpull && dpush"
+alias dmesh="dpull && dpush"
 alias dls="drive ls "
 
 alias drives="sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL"
@@ -23,9 +23,9 @@ alias drives="sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL"
 alias httpserver='python -m SimpleHTTPServer'
 
 touchpad_control() {
-    if [[ $@ == "--enable" ]]; then
+    if [[ $@ == "on" ]]; then
         command xinput set-prop 14 "Device Enabled" 1
-    elif [[ $@ == "--disable" ]]; then    
+    elif [[ $@ == "off" ]]; then    
         command xinput set-prop 14 "Device Enabled" 0
     else
         echo "Not recognized command. Use --enable or --disable."
