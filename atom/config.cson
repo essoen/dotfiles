@@ -1,0 +1,14 @@
+"*":
+  core:
+    disabledPackages: [
+      "markdown-preview"
+      "markdown-scroll-sync"
+    ]
+  editor:
+    fontSize: 17
+    tabLength: 4
+    tabType: "soft"
+  "exception-reporting":
+    userId: "30c4c7ee-09ae-f3c5-9f4f-510286b015e9"
+  welcome:
+    showOnStartup: false
