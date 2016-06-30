@@ -2,7 +2,7 @@
 	name = Stein-Otto Svorstøl
 	email = steinotto.svorstol@gmail.com
 [push]
-	default = simple
+	default = current
 
 [color]
 	branch = auto
