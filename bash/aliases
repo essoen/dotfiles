@@ -22,6 +22,11 @@ alias drives="sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL"
 
 alias httpserver='python -m SimpleHTTPServer'
 
+alias "docker-clean"="docker rmi $(docker images -q) && docker rm $(docker ps -a -q)"
+
+alias "selenium-server"="DISPLAY=:1 xvfb-run java -jar ~/selenium/selenium-server-standalone-2.44.0.jar"
+
+
 touchpad_control() {
     if [[ $@ == "on" ]]; then
         command xinput set-prop 14 "Device Enabled" 1
