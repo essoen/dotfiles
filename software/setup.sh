@@ -17,6 +17,7 @@ sudo apt-get install -y python python3 python-pip -python3-pip #Python and Pip
 sudo apt-get install -y openjdk-7-jre openjdk-7-jdk  openjdk-8-jre openjdk-8-jdk  # Java
 sudo apt-get install -y vagrant
 
+sh $DIR/selenium.sh
 
 echo "Installing and setting up Docker and Docker Compose"
 # Install Docker and Docker Compose
