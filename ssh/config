@@ -8,5 +8,5 @@ Host norkart-azure
 	Port 50002
 
 Host norkart-svv
-    HostName 178.62.93.148
+    HostName 178.62.101.20
     User svv
