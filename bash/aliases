@@ -12,6 +12,7 @@ alias ga="git add "
 alias gaa="ga --all "
 alias gpush="git push "
 alias g="git grep "
+alias gcb="git checkout -b"
 
 alias dpull="drive pull --no-prompt "
 alias dpush="drive push "
