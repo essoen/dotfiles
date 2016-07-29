@@ -13,7 +13,7 @@
 
 [core]
 	excludefile = /home/esso/dotfiles/git/gitignore
-
+	editor = vim
 [alias]
 	track = "!git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`"
 	yolo = !git add -A && git commit -m \"$(curl -s whatthecommit.com/index.txt)\"
