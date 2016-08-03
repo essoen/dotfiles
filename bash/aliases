@@ -27,6 +27,10 @@ alias "docker-clean"="docker rmi $(docker images -q) && docker rm $(docker ps -a
 
 alias "selenium-server"="DISPLAY=:1 xvfb-run java -jar ~/selenium/selenium-server-standalone-2.44.0.jar"
 
+publish_control() {
+    command rsync -az -e 'ssh' $@ esso@svorstol.com:/home/esso/files;
+}
+alias publish=publish_control
 
 touchpad_control() {
     if [[ $@ == "on" ]]; then
