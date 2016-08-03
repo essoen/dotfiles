@@ -29,6 +29,9 @@ alias "selenium-server"="DISPLAY=:1 xvfb-run java -jar ~/selenium/selenium-serve
 
 publish_control() {
     command rsync -az -e 'ssh' $@ esso@svorstol.com:/home/esso/files;
+    URL="http://files.svorstol.com/$@";
+    echo $URL | xsel -b;
+    echo "Published to: $URL";
 }
 alias publish=publish_control
 
