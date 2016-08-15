@@ -10,3 +10,6 @@ Host norkart-azure
 Host norkart-svv
     HostName 178.62.101.20
     User svv
+Host norkart-svv-root
+    HostName 178.62.101.20
+    User root
