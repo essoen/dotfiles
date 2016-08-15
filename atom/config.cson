@@ -1,14 +1,44 @@
 "*":
   core:
     disabledPackages: [
-      "markdown-preview"
-      "markdown-scroll-sync"
+      "linter-js-standard-jsx"
+      "refactor"
+      "markdown-deluxe"
+      "markdown-pdf"
+      "vim-mode"
     ]
+    packagesWithKeymapsDisabled: []
   editor:
-    fontSize: 17
     tabLength: 4
     tabType: "soft"
   "exception-reporting":
     userId: "30c4c7ee-09ae-f3c5-9f4f-510286b015e9"
+  linter:
+    errorPanelHeight: 26
+  "package-sync":
+    createOnChange: true
+    forceOverwrite: true
+  wakatime:
+    apikey: "Saved in your ~/.wakatime.cfg file"
+  "wakatime-hidden":
+    lastInit: 1470919929
   welcome:
     showOnStartup: false
+".attribute-values.js.jsx.source":
+  editor:
+    tabLength: 4
+".js.jsx.react.source":
+  editor:
+    tabLength: 4
+".js.jsx.source":
+  editor:
+    tabLength: 4
+".js.source.subtlegradient":
+  editor:
+    tabLength: 4
+".source.sql":
+  editor:
+    tabLength: 4
+"source.gfm":
+  editor:
+    softWrap: true

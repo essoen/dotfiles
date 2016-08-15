@@ -1,0 +1,9 @@
+packages: [
+  "eslint-tab-length"
+  "linter"
+  "linter-eslint"
+  "logo-file-icons"
+  "package-sync"
+  "react"
+  "tabs-to-spaces"
+]
