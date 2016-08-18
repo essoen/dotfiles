@@ -1,9 +1,18 @@
 packages: [
   "eslint-tab-length"
+  "file-templates"
   "linter"
   "linter-eslint"
+  "linter-markdown"
   "logo-file-icons"
+  "markdown-folder"
+  "markdown-preview-plus"
+  "markdown-preview-plus-opener"
+  "markdown-toc"
+  "markdown-writer"
   "package-sync"
   "react"
   "tabs-to-spaces"
+  "turbo-javascript"
+  "wakatime"
 ]
