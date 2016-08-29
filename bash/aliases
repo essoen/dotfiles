@@ -5,6 +5,8 @@ alias update="sudo apt-get update"
 alias hadet="rm "
 alias hallo="touch "
 
+alias open="nautilus "
+
 alias gc="git commit "
 alias gpull="git pull "
 alias gs="git status "
