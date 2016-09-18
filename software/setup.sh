@@ -28,6 +28,9 @@ echo "Install OpenJDK 7 and 8 + Vagrant"
 sudo apt-get install -y openjdk-7-jre openjdk-7-jdk  openjdk-8-jre openjdk-8-jdk  # Java
 sudo apt-get install -y vagrant
 
+echo "Installing Postgres and pgAdmin"
+sudo apt-get install postgresql postgresql-contrib pgadmin3
+
 sh $DIR/selenium.sh
 
 echo "Installing and setting up Docker and Docker Compose"
