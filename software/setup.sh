@@ -30,6 +30,8 @@ sudo apt-get install -y vagrant
 
 echo "Installing Postgres and pgAdmin"
 sudo apt-get install -y postgresql postgresql-contrib pgadmin3
+echo "Install Samba-client for printers"
+sudo apt-get install -y samba-client
 
 sh $DIR/selenium.sh
 
@@ -66,7 +68,7 @@ echo "Now paste your clipboard as a new key on GitHub."
 echo "Installing Google Drive"
 sh $DIR/drive.sh
 
-echo "Installing idea-softwar, Slack and Atom"
+echo "Installing idea-software, Slack and Atom"
 sh $DIR/idea-software.sh
 sh $DIR/slack.sh
 sh $DIR/atom.sh
