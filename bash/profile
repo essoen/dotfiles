@@ -145,3 +145,8 @@ export NVM_DIR="/home/esso/.nvm"
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export WORKON_HOME=/home/esso/.virtualenvs
 source ~/.local/bin/virtualenvwrapper.sh
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export WORKON_HOME=~/.virtualenvs
+source ~/.local/bin/virtualenvwrapper.sh
+export PIP_VIRTUALENV_BASE=~/.virtualenvs
+source ~/bash-wakatime/bash-wakatime.sh
