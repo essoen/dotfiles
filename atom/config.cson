@@ -6,22 +6,28 @@
       "markdown-deluxe"
       "markdown-pdf"
       "vim-mode"
+      "markdown-preview-plus-opener"
+      "markdown-preview-plus"
+      "markdown-folder"
     ]
     packagesWithKeymapsDisabled: []
   editor:
+    fontSize: 21
     tabLength: 4
     tabType: "soft"
   "exception-reporting":
     userId: "30c4c7ee-09ae-f3c5-9f4f-510286b015e9"
   linter:
     errorPanelHeight: 26
+  "markdown-preview":
+    useGitHubStyle: true
   "package-sync":
     createOnChange: true
     forceOverwrite: true
   wakatime:
     apikey: "Saved in your ~/.wakatime.cfg file"
   "wakatime-hidden":
-    lastInit: 1470919929
+    lastInit: 1476205643
   welcome:
     showOnStartup: false
 ".attribute-values.js.jsx.source":
