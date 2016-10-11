@@ -8,10 +8,10 @@ echo "Installing tools like git, curl,  vim, nano, ftp, ssh xclip and tar."
 sudo apt-get install -y terminator curl git vim nano ftp ssh xclip xsel tar
 echo "Installing and activating firewall"
 sudo apt-get install ufw
-sudo ufw enable 
+sudo ufw enable
 
 echo "Installing devtools"
-echo "First we install Python 2 and 3, along with pip, as well as virtualenv" 
+echo "First we install Python 2 and 3, along with pip, as well as virtualenv"
 # Dev
 sudo apt-get install -y python python3 python-pip python3-pip #Python and Pip
 # See http://askubuntu.com/questions/244641/how-to-set-up-and-use-a-virtual-python-environment-in-ubuntu
@@ -21,12 +21,17 @@ export WORKON_HOME=~/.virtualenvs
 mkdir $WORKON_HOME
 echo "export WORKON_HOME=$WORKON_HOME" >> ~/.bashrc
 echo "source ~/.local/bin/virtualenvwrapper.sh" >> ~/.bashrc
-echo "export PIP_VIRTUALENV_BASE=$WORKON_HOME" >> ~/.bashrc 
+echo "export PIP_VIRTUALENV_BASE=$WORKON_HOME" >> ~/.bashrc
 source ~/.bashrc
 
 echo "Install OpenJDK 7 and 8 + Vagrant"
 sudo apt-get install -y openjdk-7-jre openjdk-7-jdk  openjdk-8-jre openjdk-8-jdk  # Java
 sudo apt-get install -y vagrant
+
+echo "Installing Postgres and pgAdmin"
+sudo apt-get install -y postgresql postgresql-contrib pgadmin3
+echo "Install Samba-client for printers"
+sudo apt-get install -y samba-client
 
 sh $DIR/selenium.sh
 
@@ -41,10 +46,10 @@ echo "Installing NVM and Node"
 #NVM
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
 source ~/.bashrc
-# Node 
+# Node
 nvm install latest
 
-echo "Installing Meteor" 
+echo "Installing Meteor"
 # Meteor
 curl https://install.meteor.com/ | sh
 
@@ -63,9 +68,8 @@ echo "Now paste your clipboard as a new key on GitHub."
 echo "Installing Google Drive"
 sh $DIR/drive.sh
 
-echo "Installing idea-software, Atom, and Nuvola Player 3" 
+echo "Installing idea-software, Slack and Atom"
 sh $DIR/idea-software.sh
-sh $DIR/nuvolaplayer.sh
 sh $DIR/slack.sh
 sh $DIR/atom.sh
 echo "Installing wakatime"
