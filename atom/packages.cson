@@ -5,8 +5,6 @@ packages: [
   "linter-eslint"
   "linter-markdown"
   "logo-file-icons"
-  "markdown-folder"
-  "markdown-preview-plus"
   "markdown-preview-plus-opener"
   "markdown-toc"
   "markdown-writer"
