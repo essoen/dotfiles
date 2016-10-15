@@ -19,13 +19,3 @@ rm $HOME/.ssh/config
 ln -s $PWD/ssh/config $HOME/.ssh/config
 echo "Created symbolic link for .ssh/config"
 
-echo "Creating symbolic links for Atom configuration files"
-ATOM_PATH="$HOME/.atom"
-ATOM_SETTINGS_PATH="$PWD/atom"
-
-for filepath in $ATOM_SETTINGS_PATH/*
-do
-    filename=${filepath##*/}
-    rm $ATOM_PATH/$filename
-    ln -s $ATOM_SETTINGS_PATH/$filename $ATOM_PATH/$filename
-done
