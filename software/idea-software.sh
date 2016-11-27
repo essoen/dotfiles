@@ -1,6 +1,6 @@
  Install IntelliJ
-PACKAGE="ideaIU-2016.1.2b.tar.gz"
+PACKAGE="ideaIU-2016.2.5.tar.gz"
 wget "https://download.jetbrains.com/idea/$PACKAGE"
 tar -xzf $PACKAGE
-sudo mv /opt
+sudo mv "ideaIU-2016.2.5" /opt
 
