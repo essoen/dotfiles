@@ -2,7 +2,7 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-source ~/bash-wakatime/bash-wakatime.sh
+# source ~/bash-wakatime/bash-wakatime.sh
 
 # If not running interactively, don't do anything
 case $- in
@@ -156,8 +156,4 @@ export NVM_DIR="/home/esso/.nvm"
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export WORKON_HOME=/home/esso/.virtualenvs
 source ~/.local/bin/virtualenvwrapper.sh
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export WORKON_HOME=~/.virtualenvs
-source ~/.local/bin/virtualenvwrapper.sh
 export PIP_VIRTUALENV_BASE=~/.virtualenvs
-source ~/bash-wakatime/bash-wakatime.sh

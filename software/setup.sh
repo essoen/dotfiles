@@ -72,9 +72,10 @@ echo "Installing idea-software, Slack and Atom"
 sh $DIR/idea-software.sh
 sh $DIR/slack.sh
 sh $DIR/atom.sh
-echo "Installing wakatime"
-sh $DIR/wakatime.sh
-echo "Wakatime isntalled - rememeber to add the API key"
+
+#echo "Installing wakatime"
+# sh $DIR/wakatime.sh
+# echo "Wakatime isntalled - rememeber to add the API key"
 
 echo "Set dotfiles-repo to use SSH"
 git remote set-url origin git@github.com:essoen/dotfiles.git
