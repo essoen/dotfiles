@@ -1,6 +1,6 @@
 Host *.studentmediene.local
-        User esso
-        ProxyCommand ssh -q scgw1.studentmediene.no nc -q0 %h 22
+	User esso
+	ProxyCommand ssh -q scgw1.studentmediene.no nc -q0 %h 22
 
 Host underwood
 	HostName svorstol.com
