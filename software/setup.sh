@@ -24,16 +24,14 @@ echo "source ~/.local/bin/virtualenvwrapper.sh" >> ~/.bashrc
 echo "export PIP_VIRTUALENV_BASE=$WORKON_HOME" >> ~/.bashrc
 source ~/.bashrc
 
-echo "Install OpenJDK 7 and 8 + Vagrant"
-sudo apt-get install -y openjdk-7-jre openjdk-7-jdk  openjdk-8-jre openjdk-8-jdk  # Java
-sudo apt-get install -y vagrant
+#echo "Install OpenJDK 7 and 8 + Vagrant"
+#sudo apt-get install -y openjdk-7-jre openjdk-7-jdk  openjdk-8-jre openjdk-8-jdk  # Java
+#sudo apt-get install -y vagrant
 
 echo "Installing Postgres and pgAdmin"
-sudo apt-get install -y postgresql postgresql-contrib pgadmin3
+sudo apt install -y postgresql postgresql-contrib pgadmin3
 echo "Install Samba-client for printers"
-sudo apt-get install -y samba-client
-
-sh $DIR/selenium.sh
+sudo apt install -y samba-client
 
 echo "Installing and setting up Docker and Docker Compose"
 # Install Docker and Docker Compose
@@ -52,12 +50,7 @@ nvm install latest
 echo "Installing yarn"
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt update
-sudo apt install yarn
-
-echo "Installing Meteor"
-# Meteor
-curl https://install.meteor.com/ | sh
+sudo apt-get update && sudo apt-get install yarn
 
 echo "Setting up git "
 git config --global user.name "Stein-Otto Svorstøl"
@@ -70,18 +63,6 @@ ssh-add ~/.ssh/id_rsa
 xclip -sel clip < ~/.ssh/id_rsa.pub
 
 echo "Now paste your clipboard as a new key on GitHub."
-
-echo "Installing Google Drive"
-sh $DIR/drive.sh
-
-echo "Installing idea-software, Slack and Atom"
-sh $DIR/idea-software.sh
-sh $DIR/slack.sh
-sh $DIR/atom.sh
-
-#echo "Installing wakatime"
-# sh $DIR/wakatime.sh
-# echo "Wakatime isntalled - rememeber to add the API key"
 
 echo "Set dotfiles-repo to use SSH"
 git remote set-url origin git@github.com:essoen/dotfiles.git
