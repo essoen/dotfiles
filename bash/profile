@@ -151,13 +151,13 @@ fi
 
 export NVM_DIR="/home/esso/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export WORKON_HOME=/home/esso/.virtualenvs
-source ~/.local/bin/virtualenvwrapper.sh
-export PIP_VIRTUALENV_BASE=~/.virtualenvs
 
 export ANDROID_HOME=${HOME}/Android/Sdk
 export PATH=${PATH}:${ANDROID_HOME}/tools
 export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 
 export HISTTIMEFORMAT="%d/%m/%y %T "
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export WORKON_HOME=~/.virtualenvs
+source ~/.local/bin/virtualenvwrapper.sh
+export PIP_VIRTUALENV_BASE=~/.virtualenvs
