@@ -157,7 +157,5 @@ export PATH=${PATH}:${ANDROID_HOME}/tools
 export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 
 export HISTTIMEFORMAT="%d/%m/%y %T "
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export WORKON_HOME=~/.virtualenvs
-source ~/.local/bin/virtualenvwrapper.sh
-export PIP_VIRTUALENV_BASE=~/.virtualenvs
+
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

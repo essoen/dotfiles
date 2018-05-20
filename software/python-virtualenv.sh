@@ -1,4 +1,3 @@
-
 sudo apt-get install -y python python3 python-pip python3-pip #Python and Pip
 # See http://askubuntu.com/questions/244641/how-to-set-up-and-use-a-virtual-python-environment-in-ubuntu
 pip3 install --user virtualenvwrapper

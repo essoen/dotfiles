@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Enables running setup.sh correctly from dotfiles root directory
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/software"
 
 echo "Starting installation"
@@ -9,61 +9,11 @@ sudo apt-get install -y terminator curl git vim nano ftp ssh xclip xsel tar
 echo "Installing and activating firewall"
 sudo apt-get install ufw
 sudo ufw enable
-
-echo "Installing devtools"
-echo "First we install Python 2 and 3, along with pip, as well as virtualenv"
-# Dev
-sudo apt-get install -y python python3 python-pip python3-pip #Python and Pip
-# See http://askubuntu.com/questions/244641/how-to-set-up-and-use-a-virtual-python-environment-in-ubuntu
-pip3 install --user virtualenvwrapper
-echo "export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3" >> ~/.bashrc
-export WORKON_HOME=~/.virtualenvs
-mkdir $WORKON_HOME
-echo "export WORKON_HOME=$WORKON_HOME" >> ~/.bashrc
-echo "source ~/.local/bin/virtualenvwrapper.sh" >> ~/.bashrc
-echo "export PIP_VIRTUALENV_BASE=$WORKON_HOME" >> ~/.bashrc
-source ~/.bashrc
-
-#echo "Install OpenJDK 7 and 8 + Vagrant"
-#sudo apt-get install -y openjdk-7-jre openjdk-7-jdk  openjdk-8-jre openjdk-8-jdk  # Java
-#sudo apt-get install -y vagrant
-
+sudo ufw allow ssh
 echo "Installing Postgres and pgAdmin"
 sudo apt install -y postgresql postgresql-contrib pgadmin3
 echo "Install Samba-client for printers"
 sudo apt install -y samba-client
-
-echo "Installing and setting up Docker and Docker Compose"
-# Install Docker and Docker Compose
-curl -fsSL https://get.docker.com/ | sh
-sudo usermod -aG docker ${USER}
-curl -L https://github.com/docker/compose/releases/download/1.7.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
-
-echo "Installing NVM and Node"
-#NVM
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
-source ~/.bashrc
-# Node
-nvm install latest
-
-echo "Installing yarn"
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt-get update && sudo apt-get install yarn
-
-echo "Setting up git "
-git config --global user.name "Stein-Otto Svorstøl"
-git config --global user.email "steinotto.svorstol@gmail.com"
-echo "Setup SSH for git"
-echo "Remeber to use empty passphrase and standard location"
-ssh-keygen -t rsa -C "steinotto.svorstol@gmail.com"
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_rsa
-xclip -sel clip < ~/.ssh/id_rsa.pub
-
-echo "Now paste your clipboard as a new key on GitHub."
-
 echo "Set dotfiles-repo to use SSH"
 git remote set-url origin git@github.com:essoen/dotfiles.git
 
