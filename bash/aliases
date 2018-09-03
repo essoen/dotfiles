@@ -22,6 +22,8 @@ alias dpush="drive push "
 alias dmesh="dpull && dpush"
 alias dls="drive ls "
 
+alias cat="bat"
+alias ping="prettyping --nolegend"
 alias drives="sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL"
 
 alias httpserver='python -m SimpleHTTPServer'

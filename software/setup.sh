@@ -6,6 +6,12 @@ echo "Starting installation"
 echo "Installing tools like git, curl,  vim, nano, ftp, ssh xclip and tar."
 # Install applications
 sudo apt-get install -y terminator curl git vim nano ftp ssh xclip xsel tar
+wget "https://github.com/sharkdp/bat/releases/download/v0.6.1/bat-musl_0.6.1_amd64.deb"
+sudp dpkg -i bat-musl_0.6.1_amd64.deb
+
+curl -O https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
+chmod +x prettyping
+sudo mv prettyping /bin 
 echo "Installing and activating firewall"
 sudo apt-get install ufw
 sudo ufw enable
