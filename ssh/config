@@ -1,20 +1,3 @@
-Host *.studentmediene.local
-	User esso
-	ProxyCommand ssh -q scgw1.studentmediene.no nc -q0 %h 22
-
 Host underwood
 	HostName svorstol.com
 	User esso
-
-Host norkart-azure
-	HostName broytekart.cloudapp.net
-	User broytekart
-	Port 50002
-
-Host norkart-svv
-    HostName 178.62.101.20
-    User svv
-
-Host norkart-svv-root
-    HostName 178.62.101.20
-    User root
