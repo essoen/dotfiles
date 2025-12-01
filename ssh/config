@@ -1,3 +1,15 @@
+Host yams
+    Hostname 10.0.0.57
+    User yams
+
+Host roon
+    Hostname 10.0.0.54
+    User roon
+
+Host casaos
+    Hostname 10.0.0.61
+    User casa
+
 Host underwood
 	HostName underwood.svorstol.com
 	User root

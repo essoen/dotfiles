@@ -40,17 +40,6 @@ publish_control() {
 }
 alias publish=publish_control
 
-touchpad_control() {
-    if [[ $@ == "on" ]]; then
-        command xinput set-prop 14 "Device Enabled" 1
-    elif [[ $@ == "off" ]]; then    
-        command xinput set-prop 14 "Device Enabled" 0
-    else
-        echo "Not recognized command. Use --enable or --disable."
-    fi
-}
-alias touchpad=touchpad_control
-
 get_json(){
     curl -s "$1" | python -m json.tool
 }
