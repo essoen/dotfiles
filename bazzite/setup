@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Bazzite setup
+# Gaming stack (Steam, Lutris, MangoHud, Gamemode), RPM Fusion,
+# Flathub, and hardware drivers are all built-in.
+
+# --- 1. FLATPAK APPS ---
+
+# Discord
+flatpak install -y flathub com.discordapp.Discord
+
+# Slack
+flatpak install -y flathub com.slack.Slack
+
+# Obsidian
+flatpak install -y flathub md.obsidian.Obsidian
+
+# Todoist
+flatpak install -y flathub com.todoist.Todoist
+
+# VS Code
+flatpak install -y flathub com.visualstudio.code
+
+# Calibre
+flatpak install -y flathub com.calibre_ebook.calibre
+
+# Signal
+flatpak install -y flathub org.signal.Signal
+
+# 1Password
+flatpak install -y flathub com.onepassword.OnePassword
+
+# --- 2. HOMEBREW & CLI TOOLS ---
+
+# Install Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
+
+# GitHub CLI
+brew install gh
+
+# --- 3. CLAUDE CODE ---
+curl -fsSL https://claude.ai/install.sh | bash
