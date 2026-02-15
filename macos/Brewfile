@@ -1,0 +1,32 @@
+# Brewfile
+
+# Formulae
+brew "volta"
+
+# Casks
+cask "steam"
+cask "microsoft-teams"
+cask "slack"
+cask "signal"
+cask "proton-mail"
+cask "protonvpn"
+cask "proton-drive"
+cask "ente"
+cask "ente-auth"
+cask "vscodium"
+cask "brave-browser"
+cask "firefox"
+cask "claude"
+cask "claude-code"
+cask "notion"
+cask "obsidian"
+cask "reader"
+cask "qobuz"
+cask "pocket-casts"
+cask "microsoft-office"
+cask "google-drive"
+cask "miro"
+cask "1password"
+cask "elgato-control-center"
+cask "todoist-app"
+
