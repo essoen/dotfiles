@@ -23,7 +23,7 @@ alias drives="sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL"
 
 alias httpserver='python -m SimpleHTTPServer'
 
-alias "docker-clean"="docker rmi $(docker images -q) && docker rm $(docker ps -a -q)"
+alias docker-clean='docker rmi $(docker images -q) && docker rm $(docker ps -a -q)'
 
 publish_control() {
     command rsync -az -e 'ssh' $@ esso@svorstol.com:/home/esso/files;
