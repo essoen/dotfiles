@@ -52,6 +52,9 @@ flatpak install -y flathub com.calibre_ebook.calibre
 # Signal: Encrypted messaging
 flatpak install -y flathub org.signal.Signal
 
+# 1Password: Password manager
+flatpak install -y flathub com.onepassword.OnePassword
+
 # homebrew
 # pre-req
 sudo dnf group install development-tools

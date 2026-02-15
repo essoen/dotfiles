@@ -11,3 +11,6 @@ sudo snap install qobuz-linux
 
 echo "Installing Signal..."
 sudo snap install signal-desktop
+
+echo "Installing 1Password..."
+sudo snap install 1password
