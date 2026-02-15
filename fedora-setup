@@ -46,4 +46,17 @@ flatpak install -y flathub com.todoist.Todoist
 # VS Code: Stable, integrates with system
 flatpak install -y flathub com.visualstudio.code
 
+# homebrew
+# pre-req
+sudo dnf group install development-tools
+sudo dnf install procps-ng curl file
+# install
+test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
 
+# github cli
+brew install gh
+
+# claude
+curl -fsSL https://claude.ai/install.sh | bash
