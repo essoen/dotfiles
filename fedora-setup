@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# --- 1. SYSTEM UPDATE & RPM FUSION ---
+sudo dnf upgrade -y
+
+# Enable RPM Fusion (Essential for Steam, NVidia/AMD drivers, and codecs)
+sudo dnf install -y \
+  https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+  https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+# --- 2. GAMING STACK & HARDWARE DRIVERS ---
+
+# Install AMD 32-bit libs for Proton/Steam, plus launchers and tools
+sudo dnf install -y \
+  vulkan-loader.i686 mesa-vulkan-drivers.i686 mesa-libGL.i686 \
+  steam lutris gamemode mangohud
+
+# Solaar for Logitech MX Keys/Master
+sudo dnf install -y solaar
+
+# OpenRazer for your DeathAdder
+# Adds the OpenSUSE build repo for Fedora
+sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/hardware:razer/Fedora_$(rpm -E %fedora)/hardware:razer.repo
+sudo dnf install -y openrazer-meta openrazer-driver-dkms
+
+# Add user to plugdev for Razer daemon access (Requires reboot)
+sudo usermod -aG plugdev $USER
+
+# --- 3. FLATPAK SETUP ---
+# Enable Flathub (Central App Store)
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+# --- 4. PRODUCTIVITY APPS ---
+# Discord: Official build wrapped in Flatpak
+flatpak install -y flathub com.discordapp.Discord
+
+# Slack: Official client
+flatpak install -y flathub com.slack.Slack
+
+# Obsidian: Verified by devs
+flatpak install -y flathub md.obsidian.Obsidian
+
+# Todoist: Task management
+flatpak install -y flathub com.todoist.Todoist
+
+# VS Code: Stable, integrates with system
+flatpak install -y flathub com.visualstudio.code
+
+
