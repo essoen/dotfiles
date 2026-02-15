@@ -1,6 +1,7 @@
 To set up macOS with relevant software:
 ```shell
-brew bundle --file=Brewfile
+chmod +x setup.sh
+./setup.sh
 ```
 
-Requires Homebrew to be installed first: https://brew.sh
+Installs Homebrew if not present, then installs packages from Brewfile.
