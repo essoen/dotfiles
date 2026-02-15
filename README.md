@@ -5,8 +5,4 @@ cd dotfiles
 sh setup.sh
 ```
 
-To install software:
-
-```shell
-sh software/setup.sh
-```
+Run `setup.sh` in the OS folder for setup of relevant software.

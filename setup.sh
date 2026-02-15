@@ -18,5 +18,4 @@ echo "Created symbolic link for .gitconfig"
 rm $HOME/.ssh/config
 ln -s $PWD/ssh/config $HOME/.ssh/config
 echo "Created symbolic link for .ssh/config"
-gsettings set org.gnome.desktop.interface clock-show-date true
 
