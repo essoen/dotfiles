@@ -17,11 +17,6 @@ alias g="git grep "
 alias gcheck="git checkout "
 alias gcheckb="git checkout -b"
 
-alias dpull="drive pull --no-prompt "
-alias dpush="drive push "
-alias dmesh="dpull && dpush"
-alias dls="drive ls "
-
 alias cat="bat"
 alias ping="prettyping --nolegend"
 alias drives="sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL"
@@ -29,8 +24,6 @@ alias drives="sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL"
 alias httpserver='python -m SimpleHTTPServer'
 
 alias "docker-clean"="docker rmi $(docker images -q) && docker rm $(docker ps -a -q)"
-
-alias "selenium-server"="DISPLAY=:1 xvfb-run java -jar ~/selenium/selenium-server-standalone-2.44.0.jar"
 
 publish_control() {
     command rsync -az -e 'ssh' $@ esso@svorstol.com:/home/esso/files;
