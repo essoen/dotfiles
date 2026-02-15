@@ -1,6 +1,5 @@
 To set up Fedora with relevant software and drivers:
 ```shell
-chmod +x setup
 ./setup
 ```
 

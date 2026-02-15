@@ -1,6 +1,5 @@
 To set up macOS with relevant software:
 ```shell
-chmod +x setup.sh
 ./setup.sh
 ```
 
