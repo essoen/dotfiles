@@ -49,6 +49,9 @@ flatpak install -y flathub com.visualstudio.code
 # Calibre: E-book management (Flathub offers latest updates faster than default repos)【8】【9】
 flatpak install -y flathub com.calibre_ebook.calibre
 
+# Signal: Encrypted messaging
+flatpak install -y flathub org.signal.Signal
+
 # homebrew
 # pre-req
 sudo dnf group install development-tools
