@@ -1,0 +1,10 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "Installing Ente Photos..."
+flatpak install -y flathub io.ente.photos
+
+echo "Installing Ente Auth..."
+flatpak install -y flathub io.ente.auth
+
+echo "Ente Photos and Ente Auth installed"

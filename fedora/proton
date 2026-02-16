@@ -1,0 +1,18 @@
+#!/bin/bash
+set -euo pipefail
+
+# --- Proton Mail Desktop ---
+echo "Installing Proton Mail..."
+curl -LO "https://proton.me/download/mail/linux/ProtonMail-desktop-beta.rpm"
+sudo dnf install -y ./ProtonMail-desktop-beta.rpm
+rm -f ProtonMail-desktop-beta.rpm
+
+# --- Proton VPN ---
+echo "Installing Proton VPN..."
+wget -q "https://repo.protonvpn.com/fedora-$(cat /etc/fedora-release | cut -d' ' -f 3)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
+sudo dnf install -y ./protonvpn-stable-release-1.0.3-1.noarch.rpm
+rm -f protonvpn-stable-release-1.0.3-1.noarch.rpm
+sudo dnf check-update --refresh || true
+sudo dnf install -y proton-vpn-gnome-desktop
+
+echo "Proton Mail and Proton VPN installed"
