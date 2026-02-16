@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-OPTIONAL_SCRIPTS=(brew ente keyd proton kde-restore dotfiles)
+OPTIONAL_SCRIPTS=(brew ente keyd proton vscode kde-restore dotfiles)
 
 echo "Select optional scripts to run after setup:"
 SELECTED=()
@@ -63,9 +63,6 @@ flatpak install -y flathub md.obsidian.Obsidian
 
 # Todoist: Task management
 flatpak install -y flathub com.todoist.Todoist
-
-# VS Code: Stable, integrates with system
-flatpak install -y flathub com.visualstudio.code
 
 # Calibre: E-book management
 flatpak install -y flathub com.calibre_ebook.calibre
