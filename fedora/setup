@@ -1,5 +1,19 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+OPTIONAL_SCRIPTS=(brew ente keyd proton)
+
+echo "Select optional scripts to run after setup:"
+SELECTED=()
+for script in "${OPTIONAL_SCRIPTS[@]}"; do
+  read -rp "  Run $script? [Y/n] " answer
+  if [[ "${answer,,}" != "n" ]]; then
+    SELECTED+=("$script")
+  fi
+done
+echo ""
+
 # --- 1. SYSTEM UPDATE & RPM FUSION ---
 sudo dnf upgrade -y
 
@@ -17,6 +31,9 @@ sudo dnf install -y \
 
 # Steam: Flatpak for sandboxing
 flatpak install -y flathub com.valvesoftware.Steam
+
+# Bottles: Windows app compatibility layer
+flatpak install -y flathub com.usebottles.bottles
 
 # Solaar for Logitech MX Keys/Master
 sudo dnf install -y solaar
@@ -58,9 +75,30 @@ flatpak install -y flathub org.signal.Signal
 # 1Password: Password manager
 flatpak install -y flathub com.onepassword.OnePassword
 
+# vim
+sudo dnf install -y vim
+
 # homebrew pre-req
 sudo dnf group install development-tools
 sudo dnf install procps-ng curl file
 
 # claude
 curl -fsSL https://claude.ai/install.sh | bash
+
+# --- RUN SELECTED OPTIONAL SCRIPTS ---
+for script in "${SELECTED[@]}"; do
+  echo "Running $script..."
+  bash "$SCRIPT_DIR/$script"
+done
+
+# --- RESTORE KDE PANEL CONFIG ---
+read -rp "Restore KDE panel config? [Y/n] " answer
+if [[ "${answer,,}" != "n" ]]; then
+  bash "$(dirname "$SCRIPT_DIR")/kde/kde-panel" restore
+fi
+
+# --- SYMLINK DOTFILES ---
+read -rp "Run dotfiles setup (symlink bash, git, ssh configs)? [Y/n] " answer
+if [[ "${answer,,}" != "n" ]]; then
+  bash "$(dirname "$SCRIPT_DIR")/setup.sh"
+fi
