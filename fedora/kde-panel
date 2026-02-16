@@ -1,0 +1,50 @@
+#!/bin/bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_DIR="$(dirname "$SCRIPT_DIR")/kde"
+CONFIG_DIR=~/.config
+FILES=(
+  plasma-org.kde.plasma.desktop-appletsrc
+  plasmashellrc
+)
+
+usage() {
+  echo "Usage: $(basename "$0") [backup|restore]"
+  exit 1
+}
+
+backup() {
+  mkdir -p "$REPO_DIR"
+  for f in "${FILES[@]}"; do
+    if [[ -f "$CONFIG_DIR/$f" ]]; then
+      cp "$CONFIG_DIR/$f" "$REPO_DIR/$f"
+      echo "Backed up $f"
+    else
+      echo "Skipped $f (not found)"
+    fi
+  done
+  echo "Panel config saved to $REPO_DIR"
+}
+
+restore() {
+  for f in "${FILES[@]}"; do
+    if [[ -f "$REPO_DIR/$f" ]]; then
+      cp "$REPO_DIR/$f" "$CONFIG_DIR/$f"
+      echo "Restored $f"
+    else
+      echo "Skipped $f (not in repo)"
+    fi
+  done
+  echo "Restarting plasmashell..."
+  kquitapp6 plasmashell && kstart plasmashell
+  echo "Panel config restored"
+}
+
+[[ $# -ne 1 ]] && usage
+
+case "$1" in
+  backup)  backup ;;
+  restore) restore ;;
+  *)       usage ;;
+esac
