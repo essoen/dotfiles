@@ -1,6 +1,7 @@
 # Brewfile
 
 # Formulae
+brew "gh"
 brew "volta"
 
 # Casks
@@ -29,4 +30,5 @@ cask "miro"
 cask "1password"
 cask "elgato-control-center"
 cask "todoist-app"
+cask "discord"
 

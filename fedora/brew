@@ -8,4 +8,4 @@ set -euo pipefail
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # packages
-brew install gh
+brew install gh volta
