@@ -1,0 +1,3 @@
+alias apti="sudo apt install -y "
+alias upgrade="sudo apt update && sudo apt -y upgrade"
+alias update="sudo apt update"

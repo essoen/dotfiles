@@ -1,7 +1,4 @@
 alias cls="clear"
-alias apti="sudo apt install -y "
-alias upgrade="sudo apt update && sudo apt -y upgrade"
-alias update="sudo apt update"
 alias hadet="rm "
 alias hallo="touch "
 
@@ -21,20 +18,20 @@ alias cat="bat"
 alias ping="prettyping --nolegend"
 alias drives="sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL"
 
-alias httpserver='python -m SimpleHTTPServer'
+alias httpserver='python3 -m http.server'
 
 alias docker-clean='docker rmi $(docker images -q) && docker rm $(docker ps -a -q)'
 
 publish_control() {
-    command rsync -az -e 'ssh' $@ esso@svorstol.com:/home/esso/files;
+    command rsync -az -e 'ssh' "$@" esso@svorstol.com:/home/esso/files;
     URL="http://files.svorstol.com/$@";
-    echo $URL | xsel -b;
+    echo "$URL" | xsel -b;
     echo "Published to: $URL";
 }
 alias publish=publish_control
 
 get_json(){
-    curl -s "$1" | python -m json.tool
+    curl -s "$1" | python3 -m json.tool
 }
 post_json(){
     curl -X POST -H "Content-Type: application/json" $1 -d $2

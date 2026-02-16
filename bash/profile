@@ -138,6 +138,12 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# Source OS-specific aliases
+DOTFILES_DIR="$(dirname "$(readlink -f ~/.bashrc)")"
+if [ -f /etc/debian_version ] && [ -f "$DOTFILES_DIR/../ubuntu/aliases" ]; then
+    . "$DOTFILES_DIR/../ubuntu/aliases"
+fi
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
