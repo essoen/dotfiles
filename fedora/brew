@@ -1,4 +1,11 @@
+#!/bin/bash
+set -euo pipefail
+
+# install homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
-test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
+
+# load brew into current shell for subsequent installs
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# packages
+brew install gh
