@@ -10,10 +10,13 @@ sudo dnf install -y \
 
 # --- 2. GAMING STACK & HARDWARE DRIVERS ---
 
-# Install AMD 32-bit libs for Proton/Steam, plus launchers and tools
+# Install AMD 32-bit libs for Proton, plus launchers and tools
 sudo dnf install -y \
   vulkan-loader.i686 mesa-vulkan-drivers.i686 mesa-libGL.i686 \
-  steam lutris gamemode mangohud
+  lutris gamemode mangohud
+
+# Steam: Flatpak for sandboxing
+flatpak install -y flathub com.valvesoftware.Steam
 
 # Solaar for Logitech MX Keys/Master
 sudo dnf install -y solaar
@@ -55,17 +58,9 @@ flatpak install -y flathub org.signal.Signal
 # 1Password: Password manager
 flatpak install -y flathub com.onepassword.OnePassword
 
-# homebrew
-# pre-req
+# homebrew pre-req
 sudo dnf group install development-tools
 sudo dnf install procps-ng curl file
-# install
-test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
-test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
-
-# github cli
-brew install gh
 
 # claude
 curl -fsSL https://claude.ai/install.sh | bash
