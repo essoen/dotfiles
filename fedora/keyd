@@ -5,7 +5,9 @@ echo "Installing keyd..."
 sudo dnf install -y keyd
 
 echo "Copying keyd config..."
-sudo cp ~/dotfiles/keyd/default.conf /etc/keyd/default.conf
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_DIR="$(dirname "$SCRIPT_DIR")"
+sudo cp "$REPO_DIR/keyd/default.conf" /etc/keyd/default.conf
 
 echo "Enabling keyd service..."
 sudo systemctl enable --now keyd
