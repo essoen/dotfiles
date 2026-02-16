@@ -9,7 +9,7 @@ rm -f ProtonMail-desktop-beta.rpm
 
 # --- Proton VPN ---
 echo "Installing Proton VPN..."
-wget -q "https://repo.protonvpn.com/fedora-$(cat /etc/fedora-release | cut -d' ' -f 3)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
+curl -fsSLO "https://repo.protonvpn.com/fedora-$(rpm -E %fedora)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
 sudo dnf install -y ./protonvpn-stable-release-1.0.3-1.noarch.rpm
 rm -f protonvpn-stable-release-1.0.3-1.noarch.rpm
 sudo dnf check-update --refresh || true
