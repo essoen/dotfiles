@@ -10,3 +10,18 @@ fi
 # Install packages from Brewfile
 echo "Installing packages from Brewfile..."
 brew bundle --file="$(dirname "$0")/Brewfile"
+
+# Install Oh My Zsh if not already installed
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    echo "Installing Oh My Zsh..."
+    RUNZSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+    echo "Oh My Zsh already installed, skipping."
+fi
+
+# Run dotfiles symlink setup
+echo "Running dotfiles setup..."
+sh "$(dirname "$0")/../setup"
+
+echo "Installing Claude Code"
+curl -fsSL https://claude.ai/install.sh | bash

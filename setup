@@ -3,13 +3,25 @@ set -euo pipefail
 
 DOTFILES="$(readlink -f "$PWD")"
 
-rm -f "$HOME/.bashrc"
-ln -s "$DOTFILES/bash/profile" "$HOME/.bashrc"
-echo "Created symbolic link for .bashrc"
+CURRENT_SHELL="$(basename "$SHELL")"
 
-rm -f "$HOME/.bash_aliases"
-ln -s "$DOTFILES/bash/aliases" "$HOME/.bash_aliases"
-echo "Created symbolic link for .bash_aliases"
+if [ "$CURRENT_SHELL" = "zsh" ]; then
+    rm -f "$HOME/.zshrc"
+    ln -s "$DOTFILES/zsh/profile" "$HOME/.zshrc"
+    echo "Created symbolic link for .zshrc"
+
+    rm -f "$HOME/.zsh_aliases"
+    ln -s "$DOTFILES/zsh/aliases" "$HOME/.zsh_aliases"
+    echo "Created symbolic link for .zsh_aliases"
+else
+    rm -f "$HOME/.bashrc"
+    ln -s "$DOTFILES/bash/profile" "$HOME/.bashrc"
+    echo "Created symbolic link for .bashrc"
+
+    rm -f "$HOME/.bash_aliases"
+    ln -s "$DOTFILES/bash/aliases" "$HOME/.bash_aliases"
+    echo "Created symbolic link for .bash_aliases"
+fi
 
 rm -f "$HOME/.vimrc"
 ln -s "$DOTFILES/bash/vimrc" "$HOME/.vimrc"

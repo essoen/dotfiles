@@ -3,6 +3,7 @@
 # Formulae
 brew "gh"
 brew "volta"
+brew "1password-cli"
 
 # Casks
 cask "steam"
@@ -31,4 +32,4 @@ cask "1password"
 cask "elgato-control-center"
 cask "todoist-app"
 cask "discord"
-
+cask "iterm2"

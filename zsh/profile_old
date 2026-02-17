@@ -1,0 +1,54 @@
+# ~/.zshrc
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# History
+HISTSIZE=1000
+SAVEHIST=2000
+HISTFILE=~/.zsh_history
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt APPEND_HISTORY
+setopt SHARE_HISTORY
+export HISTTIMEFORMAT="%d/%m/%y %T "
+
+# Enable colors
+autoload -U colors && colors
+
+# Color support for ls and grep
+alias ls='ls -G'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Git branch in prompt
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+# Prompt: user@host:dir(branch)$
+setopt PROMPT_SUBST
+PROMPT='%B%F{green}%n@%m%f%b:%B%F{blue}%~%f%b%F{red}$(parse_git_branch)%f$ '
+
+# Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Completion
+if type brew &>/dev/null; then
+    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
+autoload -Uz compinit && compinit
+
+# Source aliases
+DOTFILES_DIR="$(dirname "$(readlink -f ~/.zshrc)")"
+if [ -f "$DOTFILES_DIR/aliases" ]; then
+    . "$DOTFILES_DIR/aliases"
+fi
+
+export PATH="$HOME/.local/bin:$PATH"

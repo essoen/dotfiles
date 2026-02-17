@@ -1,0 +1,39 @@
+alias cls="clear"
+alias hadet="rm "
+alias hallo="touch "
+
+alias gc="git commit "
+alias gpull="git pull "
+alias gs="git status "
+alias ga="git add "
+alias gaa="ga --all "
+alias gpush="git push "
+alias g="git grep "
+alias gcheck="git checkout "
+alias gcheckb="git checkout -b"
+
+alias cat="bat"
+alias ping="prettyping --nolegend"
+alias drives="diskutil list"
+
+alias httpserver='python3 -m http.server'
+
+alias docker-clean='docker rmi $(docker images -q) && docker rm $(docker ps -a -q)'
+
+publish_control() {
+    command rsync -az -e 'ssh' "$@" esso@svorstol.com:/home/esso/files;
+    URL="http://files.svorstol.com/$@";
+    echo "$URL" | pbcopy;
+    echo "Published to: $URL";
+}
+alias publish=publish_control
+
+get_json(){
+    curl -s "$1" | python3 -m json.tool
+}
+post_json(){
+    curl -X POST -H "Content-Type: application/json" $1 -d $2
+}
+
+alias get=get_json
+alias post=post_json
