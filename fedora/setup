@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-OPTIONAL_SCRIPTS=(brew ente keyd proton vscode kde-restore dotfiles)
+OPTIONAL_SCRIPTS=(brew ente keyd proton vscode 1password-cli kde-restore dotfiles)
 
 echo "Select optional scripts to run after setup:"
 SELECTED=()
