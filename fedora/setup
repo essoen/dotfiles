@@ -19,9 +19,11 @@ echo ""
 sudo dnf upgrade -y
 
 # Enable RPM Fusion (Essential for Steam, NVidia/AMD drivers, and codecs)
-sudo dnf install -y \
-  https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-  https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+if ! dnf repolist | grep -q rpmfusion-free; then
+  sudo dnf install -y \
+    https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+    https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+fi
 
 # --- 2. FLATPAK SETUP ---
 # Enable Flathub (must be before any flatpak installs)
@@ -45,7 +47,9 @@ sudo dnf install -y solaar
 
 # OpenRazer for your DeathAdder
 # Adds the OpenSUSE build repo for Fedora
-sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/hardware:razer/Fedora_$(rpm -E %fedora)/hardware:razer.repo
+if ! dnf repolist | grep -q hardware_razer; then
+  sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/hardware:razer/Fedora_$(rpm -E %fedora)/hardware:razer.repo
+fi
 sudo dnf install -y openrazer-meta openrazer-driver-dkms
 
 # Add user to plugdev for Razer daemon access (Requires reboot)
@@ -80,7 +84,9 @@ sudo dnf install -y vim
 sudo dnf group install -y development-tools
 
 # claude
-curl -fsSL https://claude.ai/install.sh | bash
+if ! command -v claude &> /dev/null; then
+  curl -fsSL https://claude.ai/install.sh | bash
+fi
 
 # --- RUN SELECTED OPTIONAL SCRIPTS ---
 REPO_DIR="$(dirname "$SCRIPT_DIR")"
