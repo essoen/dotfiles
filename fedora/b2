@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euo pipefail
+
+# b2: Backblaze B2 CLI (official standalone binary — recommended by Backblaze)
+sudo curl -fsSL "https://github.com/Backblaze/B2_Command_Line_Tool/releases/latest/download/b2-linux" -o /usr/local/bin/b2
+sudo chmod +x /usr/local/bin/b2

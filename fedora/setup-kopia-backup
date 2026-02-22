@@ -1,0 +1,113 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ---- CONFIG - EDIT THESE ----
+RCLONE_REMOTE="myremote:backups/fedora"   # your rclone remote path
+KOPIA_PASSWORD="CHANGE_ME"                # repository password
+SNAPSHOT_SOURCE="/"                       # root snapshot
+# ------------------------------
+
+SCRIPT_PATH="/usr/local/bin/kopia-backup.sh"
+
+echo "==> Creating Kopia repository on rclone backend..."
+kopia repository create rclone --remote-path="$RCLONE_REMOTE" \
+  --password="$KOPIA_PASSWORD" 2>/dev/null || \
+kopia repository connect rclone --remote-path="$RCLONE_REMOTE" \
+  --password="$KOPIA_PASSWORD"
+
+echo "==> Setting retention policy: keep latest 4 only..."
+kopia policy set --global \
+  --keep-latest=4 \
+  --keep-hourly=0 \
+  --keep-daily=0 \
+  --keep-weekly=0 \
+  --keep-monthly=0 \
+  --keep-annual=0
+
+echo "==> Setting exclusion rules..."
+kopia policy set --global \
+  --add-ignore ".cache" \
+  --add-ignore ".local/share/Steam" \
+  --add-ignore ".steam" \
+  --add-ignore ".local/share/lutris" \
+  --add-ignore "Games" \
+  --add-ignore "snap" \
+  --add-ignore ".local/share/Trash" \
+  --add-ignore "/tmp" \
+  --add-ignore "/var/tmp" \
+  --add-ignore "/proc" \
+  --add-ignore "/sys" \
+  --add-ignore "/dev" \
+  --add-ignore "/run" \
+  --add-ignore "/mnt" \
+  --add-ignore "/media" \
+  --add-ignore "/swapfile" \
+  --add-ignore "/var/cache" \
+  --add-ignore "/var/log/journal" \
+  --add-ignore "lost+found"
+
+echo "==> Creating initial snapshot..."
+kopia snapshot create "$SNAPSHOT_SOURCE"
+
+echo "==> Writing backup script to $SCRIPT_PATH..."
+cat > "$SCRIPT_PATH" << 'BACKUP_SCRIPT'
+#!/usr/bin/env bash
+set -euo pipefail
+export HOME="/root"
+
+RCLONE_REMOTE="__RCLONE_REMOTE__"
+KOPIA_PASSWORD="__KOPIA_PASSWORD__"
+
+kopia repository connect rclone \
+  --remote-path="$RCLONE_REMOTE" \
+  --password="$KOPIA_PASSWORD" 2>/dev/null || true
+
+kopia snapshot create /
+kopia maintenance run --full
+kopia repository disconnect
+BACKUP_SCRIPT
+
+# Inject actual values
+sed -i "s|__RCLONE_REMOTE__|${RCLONE_REMOTE}|g" "$SCRIPT_PATH"
+sed -i "s|__KOPIA_PASSWORD__|${KOPIA_PASSWORD}|g" "$SCRIPT_PATH"
+chmod 700 "$SCRIPT_PATH"
+
+echo "==> Creating systemd service..."
+cat > /etc/systemd/system/kopia-backup.service << EOF
+[Unit]
+Description=Kopia system backup
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=$SCRIPT_PATH
+Nice=19
+IOSchedulingClass=idle
+EOF
+
+echo "==> Creating systemd timer (bi-weekly)..."
+cat > /etc/systemd/system/kopia-backup.timer << EOF
+[Unit]
+Description=Run Kopia backup every 2 weeks
+
+[Timer]
+OnCalendar=Mon *-*-1,15 02:00:00
+Persistent=true
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target
+EOF
+
+systemctl daemon-reload
+systemctl enable --now kopia-backup.timer
+
+echo ""
+echo "==> Done. Backup runs bi-weekly (1st and 15th of each month, ~02:00)."
+echo "    Keeps latest 4 snapshots. Games excluded."
+echo ""
+echo "    Verify with:"
+echo "      systemctl list-timers kopia-backup.timer"
+echo "      kopia snapshot list"
+

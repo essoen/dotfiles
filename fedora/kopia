@@ -1,0 +1,14 @@
+#!/bin/bash
+set -euo pipefail
+
+# Kopia: backup tool (official RPM repo)
+rpm --import https://kopia.io/signing-key
+cat <<'EOF' | sudo tee /etc/yum.repos.d/kopia.repo
+[Kopia]
+name=Kopia
+baseurl=https://packages.kopia.io/rpm/stable/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=https://kopia.io/signing-key
+EOF
+sudo dnf install -y kopia
