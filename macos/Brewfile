@@ -4,6 +4,9 @@
 brew "gh"
 brew "volta"
 brew "1password-cli"
+brew "b2-tools"
+brew "kopia"
+brew "rclone"
 
 # Casks
 cask "steam"
