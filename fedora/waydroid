@@ -1,0 +1,8 @@
+
+sudo dnf install waydroid
+sudo waydroid init -s GAPPS -c https://ota.waydro.id/system -v https://ota.waydro.id/vendor -f
+
+sudo systemctl start waydroid-container
+waydroid session start
+waydroid show-full-ui
+
