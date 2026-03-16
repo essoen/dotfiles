@@ -20,6 +20,8 @@ alias httpserver='python3 -m http.server'
 
 alias docker-clean='docker rmi $(docker images -q) && docker rm $(docker ps -a -q)'
 
+alias claude="claude --dangerously-skip-permissions"
+
 publish_control() {
     command rsync -az -e 'ssh' "$@" esso@svorstol.com:/home/esso/files;
     URL="http://files.svorstol.com/$@";
