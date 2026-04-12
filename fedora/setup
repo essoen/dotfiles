@@ -36,16 +36,28 @@ sudo dnf install -y \
   vulkan-loader.i686 mesa-vulkan-drivers.i686 mesa-libGL.i686 \
   lutris gamemode mangohud
 
-# Steam: Flatpak for sandboxing
-flatpak install -y flathub com.valvesoftware.Steam
+# Steam: RPM version (Flatpak version has compatibility issues)
+sudo dnf install -y steam
 
 # Bottles: Windows app compatibility layer
 flatpak install -y flathub com.usebottles.bottles
 
+# Ollama: Local LLM runner
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Proton VPN: Add repo and install
+if ! dnf repolist | grep -q protonvpn; then
+  sudo dnf install -y https://repo.protonvpn.com/fedora-$(rpm -E %fedora)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm
+fi
+sudo dnf install -y proton-vpn-gtk-app proton-mail
+
 # Solaar for Logitech MX Keys/Master
 sudo dnf install -y solaar
 
-# OpenRazer for your DeathAdder
+# Snapshot tools
+sudo dnf install -y snapper btrfs-assistant
+
+# OpenRazer for DeathAdder
 # Adds the OpenSUSE build repo for Fedora
 if ! dnf repolist | grep -q hardware_razer; then
   sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/hardware:razer/Fedora_$(rpm -E %fedora)/hardware:razer.repo
@@ -74,8 +86,23 @@ flatpak install -y flathub com.calibre_ebook.calibre
 # Signal: Encrypted messaging
 flatpak install -y flathub org.signal.Signal
 
+# Telegram: Messaging
+flatpak install -y flathub org.telegram.desktop
+
+# Brave: Web browser
+flatpak install -y flathub com.brave.Browser
+
+# QBZ: Hi-fi Qobuz player (RPM, Flatpak has network issues)
+QBZ_RPM=$(curl -s https://api.github.com/repos/vicrodh/qbz/releases/latest | grep -o 'https://.*x86_64\.rpm')
+sudo dnf install -y "$QBZ_RPM"
+
 # 1Password: Password manager
 flatpak install -y flathub com.onepassword.OnePassword
+
+# Handy: Window management (latest RPM from GitHub)
+sudo dnf install -y gtk-layer-shell
+HANDY_RPM=$(curl -s https://api.github.com/repos/cjpais/Handy/releases/latest | grep -o 'https://.*x86_64\.rpm')
+sudo dnf install -y "$HANDY_RPM"
 
 # vim
 sudo dnf install -y vim
