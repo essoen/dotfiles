@@ -1,0 +1,10 @@
+#!/bin/bash
+set -euo pipefail
+
+# Apply custom KDE keyboard shortcuts
+CONFIG=~/.config/kglobalshortcutsrc
+
+kwriteconfig6 --file "$CONFIG" --group "services" --group "net.local.handy.desktop" --key "_launch" "Ctrl+Alt"
+kwriteconfig6 --file "$CONFIG" --group "services" --group "org.kde.krunner.desktop" --key "_launch" "Meta+Space"
+
+echo "Custom shortcuts applied. Log out/in or run: qdbus org.kde.keyboard /modules/globalshortcuts reloadConfig"
