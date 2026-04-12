@@ -3,16 +3,14 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-OPTIONAL_SCRIPTS=(brew ente keyd proton vscode 1password-cli kopia rclone b2 kde-restore dotfiles)
+OPTIONAL_SCRIPTS=(brew ente keyd proton vscode 1password-cli kopia rclone b2 ollama waydroid kde-restore dotfiles)
 
-echo "Select optional scripts to run after setup:"
-SELECTED=()
-for script in "${OPTIONAL_SCRIPTS[@]}"; do
-  read -rp "  Run $script? [Y/n] " answer
-  if [[ "${answer,,}" != "n" ]]; then
-    SELECTED+=("$script")
-  fi
-done
+if ! command -v gum &> /dev/null; then
+  sudo dnf install -y gum
+fi
+
+echo "Select optional scripts to run after setup (space to toggle, enter to confirm):"
+mapfile -t SELECTED < <(gum choose --no-limit "${OPTIONAL_SCRIPTS[@]}")
 echo ""
 
 # --- 1. SYSTEM UPDATE & RPM FUSION ---
@@ -41,9 +39,6 @@ sudo dnf install -y steam
 
 # Bottles: Windows app compatibility layer
 flatpak install -y flathub com.usebottles.bottles
-
-# Ollama: Local LLM runner
-curl -fsSL https://ollama.com/install.sh | sh
 
 # Proton VPN: Add repo and install
 if ! dnf repolist | grep -q protonvpn; then
