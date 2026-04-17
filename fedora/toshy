@@ -1,0 +1,13 @@
+#!/bin/bash
+set -euo pipefail
+
+# Toshy: macOS-style keyboard remapping for Linux (X11 + Wayland).
+# Installed via the upstream bootstrap script, which handles distro
+# detection, dependencies, and the systemd user service setup.
+#
+# The bootstrap is interactive — it prompts for a branch and install flags.
+# See: https://github.com/RedBearAK/toshy/wiki/How-to-install-Toshy-with-a-single-command
+
+echo "Installing Toshy via upstream bootstrap..."
+
+bash -c "$(curl -L https://raw.githubusercontent.com/RedBearAK/toshy/main/scripts/bootstrap.sh || wget -O - https://raw.githubusercontent.com/RedBearAK/toshy/main/scripts/bootstrap.sh)"

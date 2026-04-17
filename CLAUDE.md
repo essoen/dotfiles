@@ -9,12 +9,11 @@ A personal dotfiles repository managing shell configuration, OS setup scripts, a
 ## Repository Structure
 
 - `setup` — Main entry point: symlinks bash/git/ssh/vim configs to `$HOME`
-- `fedora/setup` — Primary OS setup: packages, flatpaks, drivers, then optionally runs subscripts (brew, ente, keyd, proton, vscode, kde-restore, dotfiles)
+- `fedora/setup` — Primary OS setup: packages, flatpaks, drivers, then optionally runs subscripts (brew, ente, toshy, proton, vscode, kde-restore, dotfiles)
 - `bazzite/setup`, `macos/setup`, `ubuntu/*.sh` — Other OS setups
 - `bash/` — Shell config (profile=bashrc, aliases, vimrc)
 - `git/` — gitconfig, global gitignore, prepare-commit-msg hook (auto-prepends branch name)
 - `kde/` — KDE Plasma panel backup/restore (`kde-panel backup|restore`)
-- `keyd/` — macOS-style keyboard remapping config for Linux
 
 ## Script Conventions
 
