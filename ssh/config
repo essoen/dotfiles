@@ -2,8 +2,10 @@ Host yams
     Hostname 10.0.0.57
     User yams
 
-Host casaos
-    Hostname 10.0.0.61
-    User casa
+Host claude-station glados
+    Hostname claude.svrstl.io
+    User claude
 
-
+Host 3t
+    Hostname 3t.svrstl.io
+    User 3t
