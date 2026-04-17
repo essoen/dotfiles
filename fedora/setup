@@ -40,11 +40,13 @@ sudo dnf install -y steam
 # Bottles: Windows app compatibility layer
 flatpak install -y flathub com.usebottles.bottles
 
-# Proton VPN: Add repo and install
-if ! dnf repolist | grep -q protonvpn; then
-  sudo dnf install -y https://repo.protonvpn.com/fedora-$(rpm -E %fedora)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm
-fi
-sudo dnf install -y proton-vpn-gtk-app proton-mail
+# Proton VPN: Add repo and install (graceful if repo lacks current Fedora version)
+{
+  if ! dnf repolist | grep -q protonvpn; then
+    sudo dnf install -y https://repo.protonvpn.com/fedora-$(rpm -E %fedora)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm
+  fi
+  sudo dnf install -y proton-vpn-gtk-app proton-mail
+} || echo "  ⚠ Proton VPN install failed (repo may not support Fedora $(rpm -E %fedora) yet) — skipping"
 
 # Solaar for Logitech MX Keys/Master
 sudo dnf install -y solaar
@@ -53,14 +55,20 @@ sudo dnf install -y solaar
 sudo dnf install -y snapper btrfs-assistant
 
 # OpenRazer for DeathAdder
-# Adds the OpenSUSE build repo for Fedora
-if ! dnf repolist | grep -q hardware_razer; then
-  sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/hardware:razer/Fedora_$(rpm -E %fedora)/hardware:razer.repo
-fi
-sudo dnf install -y openrazer-meta openrazer-driver-dkms
-
-# Add user to plugdev for Razer daemon access (Requires reboot)
-sudo usermod -aG plugdev $USER
+# Adds the OpenSUSE build repo for Fedora (graceful: OBS lags behind Fedora releases)
+{
+  FEDORA_VER=$(rpm -E %fedora)
+  RAZER_REPO_URL="https://download.opensuse.org/repositories/hardware:razer/Fedora_${FEDORA_VER}/hardware:razer.repo"
+  if curl -sfL "$RAZER_REPO_URL" | grep -q "\[hardware_razer\]"; then
+    if ! dnf repolist | grep -q hardware_razer; then
+      sudo dnf config-manager --add-repo "$RAZER_REPO_URL"
+    fi
+    sudo dnf install -y openrazer-meta openrazer-driver-dkms
+    sudo usermod -aG plugdev $USER
+  else
+    echo "  ⚠ OpenRazer repo not yet available for Fedora ${FEDORA_VER} — skipping"
+  fi
+} || echo "  ⚠ OpenRazer install failed — skipping"
 
 # --- 4. PRODUCTIVITY APPS ---
 # Discord: Official build wrapped in Flatpak
@@ -88,16 +96,28 @@ flatpak install -y flathub org.telegram.desktop
 flatpak install -y flathub com.brave.Browser
 
 # QBZ: Hi-fi Qobuz player (RPM, Flatpak has network issues)
-QBZ_RPM=$(curl -s https://api.github.com/repos/vicrodh/qbz/releases/latest | grep -o 'https://.*x86_64\.rpm')
-sudo dnf install -y "$QBZ_RPM"
+{
+  QBZ_RPM=$(curl -s https://api.github.com/repos/vicrodh/qbz/releases/latest | grep -oE 'https://[^"]*x86_64\.rpm' | head -1)
+  if [[ -n "$QBZ_RPM" ]]; then
+    sudo dnf install -y "$QBZ_RPM"
+  else
+    echo "  ⚠ QBZ: could not resolve latest RPM URL — skipping"
+  fi
+} || echo "  ⚠ QBZ install failed — skipping"
 
 # 1Password: Password manager
 flatpak install -y flathub com.onepassword.OnePassword
 
 # Handy: Window management (latest RPM from GitHub)
-sudo dnf install -y gtk-layer-shell
-HANDY_RPM=$(curl -s https://api.github.com/repos/cjpais/Handy/releases/latest | grep -o 'https://.*x86_64\.rpm')
-sudo dnf install -y "$HANDY_RPM"
+{
+  sudo dnf install -y gtk-layer-shell
+  HANDY_RPM=$(curl -s https://api.github.com/repos/cjpais/Handy/releases/latest | grep -oE 'https://[^"]*x86_64\.rpm' | head -1)
+  if [[ -n "$HANDY_RPM" ]]; then
+    sudo dnf install -y "$HANDY_RPM"
+  else
+    echo "  ⚠ Handy: could not resolve latest RPM URL — skipping"
+  fi
+} || echo "  ⚠ Handy install failed — skipping"
 
 # vim
 sudo dnf install -y vim
