@@ -1,0 +1,26 @@
+#!/bin/bash
+set -euo pipefail
+
+# dnf-automatic: automatic background package updates via systemd timer.
+#
+# Not enabled by default in Fedora. This script installs it, configures
+# apply_updates=yes (download AND install), and enables the daily timer.
+#
+# Trade-off: auto-apply keeps the system current without manual intervention,
+# but a bad package can land while you're not looking. Acceptable for personal
+# workstations; for servers, prefer manual review or security-only updates.
+
+echo "Installing and enabling dnf-automatic (daily auto-updates)..."
+
+sudo dnf install -y dnf-automatic
+
+# Set apply_updates = yes (default is 'no' = download only)
+sudo sed -i 's/^apply_updates = no$/apply_updates = yes/' /etc/dnf/automatic.conf
+
+sudo systemctl enable --now dnf-automatic.timer
+
+echo ""
+echo "dnf-automatic enabled. Check status: systemctl list-timers dnf-automatic"
+echo "Logs: journalctl -u dnf-automatic.service"
+echo ""
+echo "To revert: sudo systemctl disable --now dnf-automatic.timer"
