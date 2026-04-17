@@ -8,4 +8,4 @@ set -euo pipefail
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # packages
-brew install gh volta
+brew install gh volta todoist

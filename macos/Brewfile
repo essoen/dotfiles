@@ -7,6 +7,7 @@ brew "1password-cli"
 brew "b2-tools"
 brew "kopia"
 brew "rclone"
+brew "todoist"
 
 # Casks
 cask "steam"
