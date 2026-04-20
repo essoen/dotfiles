@@ -11,30 +11,6 @@ panelVisibility=1
 [PlasmaViews][Panel 2][Defaults]
 thickness=44
 
-[PlasmaViews][Panel 27]
-floating=1
-
-[PlasmaViews][Panel 27][Defaults]
-maxLength=2800
-minLength=2800
-thickness=44
-
-[PlasmaViews][Panel 27][Horizontal3840]
-maxLength=2800
-minLength=2800
-
-[PlasmaViews][Panel 52]
-floating=1
-
-[PlasmaViews][Panel 52][Defaults]
-thickness=22
-
-[PlasmaViews][Panel 59]
-floating=1
-
-[PlasmaViews][Panel 59][Defaults]
-thickness=44
-
 [PlasmaViews][Panel 84]
 floating=0
 

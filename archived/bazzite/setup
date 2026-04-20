@@ -27,6 +27,7 @@ flatpak install -y flathub com.calibre_ebook.calibre
 
 # Signal
 flatpak install -y flathub org.signal.Signal
+sudo flatpak override --env=SIGNAL_PASSWORD_STORE=gnome-libsecret org.signal.Signal
 
 # 1Password
 flatpak install -y flathub com.onepassword.OnePassword

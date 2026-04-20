@@ -48,6 +48,12 @@ flatpak install -y flathub com.usebottles.bottles
   sudo dnf install -y proton-vpn-gtk-app proton-mail
 } || echo "  ⚠ Proton VPN install failed (repo may not support Fedora $(rpm -E %fedora) yet) — skipping"
 
+# Tailscale: mesh VPN (official installer handles repo + service enable)
+if ! command -v tailscale &> /dev/null; then
+  curl -fsSL https://tailscale.com/install.sh | sh
+fi
+sudo tailscale up
+
 # Solaar for Logitech MX Keys/Master
 sudo dnf install -y solaar
 
@@ -88,6 +94,9 @@ flatpak install -y flathub com.calibre_ebook.calibre
 
 # Signal: Encrypted messaging
 flatpak install -y flathub org.signal.Signal
+# Use GNOME Keyring (libsecret) instead of Signal's default kwallet/basictext
+# store — works without prompting for a separate Signal password on KDE.
+sudo flatpak override --env=SIGNAL_PASSWORD_STORE=gnome-libsecret org.signal.Signal
 
 # Telegram: Messaging
 flatpak install -y flathub org.telegram.desktop
