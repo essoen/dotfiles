@@ -1,0 +1,41 @@
+#!/bin/bash
+set -euo pipefail
+
+# rpmfusion: enable RPM Fusion (free + nonfree), swap to the full ffmpeg,
+# pull in the freeworld multimedia codecs, and install the freeworld VA-API
+# mesa drivers for hardware-accelerated H.264/HEVC decode.
+#
+# Follows https://rpmfusion.org/Configuration and
+# https://rpmfusion.org/Howto/Multimedia. Safe to re-run: every step is
+# idempotent (dnf install on an already-present package is a no-op, and the
+# ffmpeg swap has nothing to do once flipped).
+
+FEDORA_VER="$(rpm -E %fedora)"
+
+echo "Enabling RPM Fusion free + nonfree..."
+sudo dnf install -y \
+  "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_VER}.noarch.rpm" \
+  "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_VER}.noarch.rpm"
+
+# Fedora ships the Cisco-hosted OpenH264 repo disabled by default.
+echo "Enabling fedora-cisco-openh264 repo..."
+sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
+
+# Swap Fedora's stripped-down ffmpeg-free for the full RPM Fusion ffmpeg.
+# --allowerasing drops the libav*-free shims that the real ffmpeg replaces.
+echo "Swapping ffmpeg-free -> ffmpeg..."
+sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
+
+# Pull in the freeworld codec plugins (gstreamer bad/ugly, libheif, vlc,
+# pipewire aptX, ...). Exclude PackageKit-gstreamer-plugin — it's GNOME-only.
+echo "Updating @multimedia with freeworld codecs..."
+sudo dnf update -y @multimedia \
+  --setopt="install_weak_deps=False" \
+  --exclude=PackageKit-gstreamer-plugin
+
+# Hardware-accelerated video decode on AMD/Intel via VA-API (H.264/HEVC).
+echo "Installing mesa-va-drivers-freeworld..."
+sudo dnf install -y mesa-va-drivers-freeworld
+
+echo ""
+echo "RPM Fusion ready. Verify ffmpeg codecs: ffmpeg -codecs | grep -E 'h264|hevc'"
