@@ -4,8 +4,8 @@ switch-to-activity-0a0776c8-6033-4133-b79d-5f2e200480e6=none,none,Switch to acti
 switch-to-activity-76cea694-7d27-4d33-a585-e28b0294ac53=none,none,Switch to activity "Default"
 
 [KDE Keyboard Layout Switcher]
-Switch to Last-Used Keyboard Layout=Meta+Alt+L,Meta+Alt+L,
-Switch to Next Keyboard Layout=Meta+Alt+K,Meta+Alt+K,
+Switch to Last-Used Keyboard Layout=none,Meta+Alt+L,Switch to Last-Used Keyboard Layout
+Switch to Next Keyboard Layout=Meta+Alt+K,Meta+Alt+K,Switch to Next Keyboard Layout
 _k_friendly_name=Keyboard Layout Switcher
 
 [kaccess]
@@ -270,7 +270,7 @@ switch to previous activity=,,Switch to Previous Activity
 toggle do not disturb=,,Toggle do not disturb
 
 [services][net.local.handy.desktop]
-_launch=Ctrl+Alt
+_launch=Meta+Alt+L
 
 [services][org.kde.krunner.desktop]
 _launch=Meta+Space
