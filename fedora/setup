@@ -131,6 +131,9 @@ flatpak install -y flathub com.onepassword.OnePassword
 # vim
 sudo dnf install -y vim
 
+# Norwegian hunspell dictionaries (Bokmål + Nynorsk)
+sudo dnf install -y hunspell-nb hunspell-nn
+
 # homebrew pre-req
 sudo dnf group install -y development-tools
 
