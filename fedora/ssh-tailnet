@@ -1,0 +1,48 @@
+#!/bin/bash
+set -euo pipefail
+
+# ssh-tailnet: open SSH to other devices on the tailnet only.
+# Installs openssh-server, enables sshd, and binds tailscale0 to a dedicated
+# firewalld zone that permits SSH — so LAN/public traffic can't reach port 22.
+# Does NOT enable Tailscale SSH; regular OpenSSH auth (keys/password) applies.
+
+if [[ $EUID -ne 0 ]]; then
+  exec sudo -- "$0" "$@"
+fi
+
+# 1. OpenSSH server
+dnf install -y openssh-server
+systemctl enable --now sshd.service
+
+# 2. Firewall: dedicated zone bound to tailscale0 that allows SSH.
+# Default target on a new zone rejects anything not explicitly allowed,
+# so only port 22 over tailscale0 is opened.
+if systemctl is-active --quiet firewalld; then
+  if ! firewall-cmd --get-zones | grep -qw tailscale; then
+    firewall-cmd --permanent --new-zone=tailscale
+  fi
+  firewall-cmd --permanent --zone=tailscale --add-service=ssh
+  if ip link show tailscale0 &>/dev/null; then
+    firewall-cmd --permanent --zone=tailscale --change-interface=tailscale0
+  else
+    echo "  ⚠ tailscale0 not present — bind the interface manually after 'tailscale up':"
+    echo "     sudo firewall-cmd --permanent --zone=tailscale --change-interface=tailscale0 && sudo firewall-cmd --reload"
+  fi
+  firewall-cmd --reload
+else
+  echo "  ⚠ firewalld not active — skipping firewall config"
+fi
+
+# 3. Info
+echo
+echo "=== SSH ready on tailnet ==="
+systemctl --no-pager status sshd | head -n 5 || true
+echo
+if command -v tailscale &>/dev/null; then
+  echo "Tailscale:"
+  tailscale ip -4 2>/dev/null || true
+  tailscale status 2>/dev/null | head -n 1 || true
+fi
+echo
+echo "Connect from another tailnet device:"
+echo "  ssh ${SUDO_USER:-$USER}@$(hostname)"
