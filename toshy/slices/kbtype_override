@@ -1,0 +1,8 @@
+
+keyboards_UserCustom_dct = {
+    # Add your keyboard device here if its type is misidentified.
+    # Valid types to map device to: Apple, Windows, IBM, Chromebook (case sensitive)
+    # Example:
+    'My Keyboard Device Name': 'Apple',
+}
+

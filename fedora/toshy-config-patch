@@ -1,0 +1,57 @@
+#!/bin/bash
+set -euo pipefail
+
+# Splice user-tracked SLICE blocks from dotfiles/toshy/slices/ into the live
+# Toshy config. Idempotent. Run after toshy installs/upgrades.
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_DIR="$(dirname "$SCRIPT_DIR")"
+SLICES_DIR="$REPO_DIR/toshy/slices"
+CONFIG="$HOME/.config/toshy/toshy_config.py"
+
+if [ ! -f "$CONFIG" ] && [ ! -L "$CONFIG" ]; then
+    echo "Toshy config not found at $CONFIG. Install Toshy first." >&2
+    exit 1
+fi
+
+# Legacy: if config is still a symlink to dotfiles, replace with regular file
+# so this patch script (and Toshy's own SLICE-aware upgrades) can write to it.
+if [ -L "$CONFIG" ]; then
+    target="$(readlink -f "$CONFIG")"
+    rm "$CONFIG"
+    cp "$target" "$CONFIG"
+    echo "Replaced legacy symlink with regular file"
+fi
+
+for slice_file in "$SLICES_DIR"/*; do
+    [ -f "$slice_file" ] || continue
+    name="$(basename "$slice_file")"
+
+    if ! grep -q "SLICE_MARK_START: $name " "$CONFIG"; then
+        echo "  ⚠ Slice marker '$name' not found in config — skipping"
+        continue
+    fi
+
+    tmp="$(mktemp)"
+    awk -v name="$name" -v slicefile="$slice_file" '
+        $0 ~ "SLICE_MARK_START: " name " " {
+            print
+            while ((getline line < slicefile) > 0) print line
+            close(slicefile)
+            in_slice = 1
+            next
+        }
+        $0 ~ "SLICE_MARK_END: " name " " {
+            in_slice = 0
+        }
+        !in_slice { print }
+    ' "$CONFIG" > "$tmp"
+
+    mv "$tmp" "$CONFIG"
+    echo "Applied slice: $name"
+done
+
+if systemctl --user is-active toshy-config.service >/dev/null 2>&1; then
+    systemctl --user restart toshy-config.service
+    echo "Restarted toshy-config.service"
+fi

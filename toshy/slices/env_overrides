@@ -1,0 +1,20 @@
+
+# MANUALLY set any environment information if the auto-identification isn't working:
+OVERRIDE_DISTRO_ID              = None
+OVERRIDE_DISTRO_VER             = None
+OVERRIDE_VARIANT_ID             = None
+OVERRIDE_SESSION_TYPE           = None
+OVERRIDE_DESKTOP_ENV            = None
+OVERRIDE_DE_MAJ_VER             = None
+OVERRIDE_WINDOW_MGR             = None
+
+wlroots_compositors             = [
+    # Comma-separated list of Wayland desktop environments or window managers
+    # that should try to use the 'wlroots' window context provider. Use the
+    # 'WINDOW_MGR' name that appears when running `toshy-env`, or 'DESKTOP_ENV'
+    # if the window manager name is not identified.
+    # 'obscurewm',
+    # 'unknown-wm',
+
+]
+

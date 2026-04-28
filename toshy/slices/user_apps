@@ -1,0 +1,12 @@
+
+
+keymap("User hardware keys", {
+    # PUT UNIVERSAL REMAPS FOR HARDWARE KEYS HERE
+    # KEYMAP WILL BE ACTIVE IN ALL DESKTOP ENVIRONMENTS/DISTROS
+
+
+}, when = lambda ctx:
+    cnfg.screen_has_focus and
+    hmp_not_remote(ctx)
+)
+

@@ -1,0 +1,9 @@
+
+# List of devices to add to the device exclusion list below this slice
+
+exclude_kpad_devs_UserCustom_lst = [
+    # Example syntax:
+    # 'My Keyboard Device',
+
+]
+
