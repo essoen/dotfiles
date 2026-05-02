@@ -1,0 +1,83 @@
+#!/bin/bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_DIR="$SCRIPT_DIR"
+CONFIG_DIR="$HOME/.config/sunshine"
+HELPERS_DIR="$HOME/scripts"
+SERVICE="app-dev.lizardbyte.app.Sunshine.service"
+
+CONFIG_FILES=(sunshine.conf apps.json)
+HELPER_FILES=(sunshine-stream-start.sh sunshine-stream-stop.sh)
+
+usage() {
+  echo "Usage: $(basename "$0") [backup|restore]"
+  exit 1
+}
+
+# Replace $HOME paths with __HOME__ token so the repo is portable across users.
+to_repo()  { sed "s|$HOME|__HOME__|g"; }
+from_repo() { sed "s|__HOME__|$HOME|g"; }
+
+backup() {
+  mkdir -p "$REPO_DIR"
+  for f in "${CONFIG_FILES[@]}"; do
+    if [[ -f "$CONFIG_DIR/$f" ]]; then
+      to_repo < "$CONFIG_DIR/$f" > "$REPO_DIR/$f"
+      echo "Backed up $f"
+    else
+      echo "Skipped $f (not found in $CONFIG_DIR)"
+    fi
+  done
+  for f in "${HELPER_FILES[@]}"; do
+    if [[ -f "$HELPERS_DIR/$f" ]]; then
+      cp "$HELPERS_DIR/$f" "$REPO_DIR/$f"
+      chmod +x "$REPO_DIR/$f"
+      echo "Backed up $f"
+    else
+      echo "Skipped $f (not found in $HELPERS_DIR)"
+    fi
+  done
+  echo "Sunshine config saved to $REPO_DIR"
+}
+
+restore() {
+  mkdir -p "$CONFIG_DIR" "$HELPERS_DIR"
+  for f in "${CONFIG_FILES[@]}"; do
+    if [[ -f "$REPO_DIR/$f" ]]; then
+      from_repo < "$REPO_DIR/$f" > "$CONFIG_DIR/$f"
+      echo "Restored $f"
+    else
+      echo "Skipped $f (not in repo)"
+    fi
+  done
+  for f in "${HELPER_FILES[@]}"; do
+    if [[ -f "$REPO_DIR/$f" ]]; then
+      cp "$REPO_DIR/$f" "$HELPERS_DIR/$f"
+      chmod +x "$HELPERS_DIR/$f"
+      echo "Restored $f -> $HELPERS_DIR"
+    else
+      echo "Skipped $f (not in repo)"
+    fi
+  done
+
+  if systemctl --user list-unit-files "$SERVICE" >/dev/null 2>&1; then
+    if systemctl --user is-active --quiet "$SERVICE"; then
+      echo "Restarting $SERVICE..."
+      systemctl --user restart "$SERVICE"
+    else
+      echo "$SERVICE not active; skipping restart"
+    fi
+  else
+    echo "Sunshine service not installed; install Sunshine then re-run restore"
+  fi
+  echo "Sunshine config restored"
+}
+
+[[ $# -ne 1 ]] && usage
+
+case "$1" in
+  backup)  backup ;;
+  restore) restore ;;
+  *)       usage ;;
+esac

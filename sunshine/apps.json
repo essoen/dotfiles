@@ -1,0 +1,82 @@
+{
+  "env": {
+    "PATH": "$(PATH):$(HOME)/.local/bin"
+  },
+  "apps": [
+    {
+      "name": "Desktop",
+      "image-path": "desktop.png"
+    },
+    {
+      "name": "Desktop (TV 1080p60)",
+      "image-path": "desktop.png",
+      "prep-cmd": [
+        {
+          "do": "__HOME__/scripts/sunshine-stream-start.sh 1920 1080 60",
+          "undo": "__HOME__/scripts/sunshine-stream-stop.sh",
+          "elevated": "false"
+        }
+      ]
+    },
+    {
+      "name": "Desktop (iPad 1920x1200@120)",
+      "image-path": "desktop.png",
+      "prep-cmd": [
+        {
+          "do": "__HOME__/scripts/sunshine-stream-start.sh 1920 1200 120",
+          "undo": "__HOME__/scripts/sunshine-stream-stop.sh",
+          "elevated": "false"
+        }
+      ]
+    },
+    {
+      "name": "Steam Big Picture",
+      "detached": [
+        "setsid steam steam://open/bigpicture"
+      ],
+      "prep-cmd": [
+        {
+          "do": "",
+          "undo": "setsid steam steam://close/bigpicture"
+        }
+      ],
+      "image-path": "steam.png"
+    },
+    {
+      "name": "Steam Big Picture (TV 1080p60)",
+      "detached": [
+        "setsid steam steam://open/bigpicture"
+      ],
+      "prep-cmd": [
+        {
+          "do": "__HOME__/scripts/sunshine-stream-start.sh 1920 1080 60",
+          "undo": "__HOME__/scripts/sunshine-stream-stop.sh",
+          "elevated": "false"
+        },
+        {
+          "do": "",
+          "undo": "setsid steam steam://close/bigpicture"
+        }
+      ],
+      "image-path": "steam.png"
+    },
+    {
+      "name": "Steam Big Picture (iPad 1920x1200@120)",
+      "detached": [
+        "setsid steam steam://open/bigpicture"
+      ],
+      "prep-cmd": [
+        {
+          "do": "__HOME__/scripts/sunshine-stream-start.sh 1920 1200 120",
+          "undo": "__HOME__/scripts/sunshine-stream-stop.sh",
+          "elevated": "false"
+        },
+        {
+          "do": "",
+          "undo": "setsid steam steam://close/bigpicture"
+        }
+      ],
+      "image-path": "steam.png"
+    }
+  ]
+}
