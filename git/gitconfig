@@ -19,3 +19,9 @@
 	yolo = !git add -A && git commit -m \"$(curl -s whatthecommit.com/index.txt)\"
 [url "https://github.com/"]
 	insteadOf = git://github.com/
+[credential "https://github.com"]
+	helper = 
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
