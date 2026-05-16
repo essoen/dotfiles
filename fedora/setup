@@ -92,6 +92,9 @@ flatpak install -y flathub com.todoist.Todoist
 # Calibre: E-book management
 flatpak install -y flathub com.calibre_ebook.calibre
 
+# Readest: E-book reader
+flatpak install -y flathub com.bilingify.readest
+
 # Signal: Encrypted messaging
 flatpak install -y flathub org.signal.Signal
 # Use GNOME Keyring (libsecret) instead of Signal's default kwallet/basictext
@@ -133,6 +136,9 @@ sudo dnf install -y vim
 
 # Norwegian hunspell dictionaries (Bokmål + Nynorsk)
 sudo dnf install -y hunspell-nb hunspell-nn
+
+# Make Flatpak apps prefer Norwegian Bokmål, fall back to English
+flatpak override --user --env=LANGUAGE=nb_NO:en_US
 
 # homebrew pre-req
 sudo dnf group install -y development-tools
