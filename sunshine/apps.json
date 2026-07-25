@@ -34,6 +34,7 @@
     },
     {
       "name": "Steam iPad",
+      "image-path": "__HOME__/dotfiles/sunshine/steam-ipad.png",
       "detached": [
         "setsid steam steam://open/bigpicture"
       ],
@@ -47,8 +48,7 @@
           "do": "",
           "undo": "setsid steam steam://close/bigpicture"
         }
-      ],
-      "image-path": "steam.png"
+      ]
     }
   ]
 }
