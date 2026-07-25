@@ -15,6 +15,7 @@ A personal dotfiles repository managing shell configuration, OS setup scripts, a
 - `bash/` — Shell config (profile=bashrc, aliases, vimrc)
 - `git/` — gitconfig, global gitignore, prepare-commit-msg hook (auto-prepends branch name)
 - `kde/` — KDE Plasma panel backup/restore (`kde-panel backup|restore`)
+- `handy/` — Handy speech-to-text settings backup/restore (`handy backup|restore`); backup always scrubs API keys (repo is public), restore offers to re-inject the Anthropic key from 1Password or manual entry
 
 ## Script Conventions
 
@@ -33,7 +34,7 @@ A personal dotfiles repository managing shell configuration, OS setup scripts, a
 ## Key Relationships
 
 - `fedora/setup` calls subscripts via a selection menu at the start, executes them at the end
-- `kde-restore` and `dotfiles` in the optional scripts list are special-cased (different paths than `$SCRIPT_DIR`)
+- `kde-restore`, `handy-restore`, and `dotfiles` in the optional scripts list are special-cased (different paths than `$SCRIPT_DIR`)
 - `bash/profile` sources `~/.bash_aliases` and conditionally sources `archived/ubuntu/aliases` on Debian-based systems
 - Symlinks are created by the root `setup` script, referenced by `fedora/setup` as the `dotfiles` optional step
 

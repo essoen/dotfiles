@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-OPTIONAL_SCRIPTS=(brew ente toshy toshy-config-patch proton vscode 1password-cli kopia rclone b2 ollama waydroid dnf-automatic rpmfusion ssh-tailnet steam-gamescope kde-restore dotfiles)
+OPTIONAL_SCRIPTS=(brew ente toshy toshy-config-patch proton vscode 1password-cli kopia rclone b2 ollama waydroid dnf-automatic rpmfusion ssh-tailnet steam-gamescope kde-restore handy-restore dotfiles)
 
 if ! command -v gum &> /dev/null; then
   sudo dnf install -y gum
@@ -120,7 +120,7 @@ flatpak install -y flathub com.brave.Browser
 # 1Password: Password manager
 flatpak install -y flathub com.onepassword.OnePassword
 
-# Handy: Window management (latest RPM from GitHub)
+# Handy: Speech-to-text dictation (latest RPM from GitHub)
 {
   sudo dnf install -y gtk-layer-shell
   HANDY_RPM=$(curl -s https://api.github.com/repos/cjpais/Handy/releases/latest | grep -oE 'https://[^"]*x86_64\.rpm' | head -1)
@@ -153,8 +153,9 @@ REPO_DIR="$(dirname "$SCRIPT_DIR")"
 for script in "${SELECTED[@]}"; do
   echo "Running $script..."
   case "$script" in
-    kde-restore) bash "$REPO_DIR/kde/kde-panel" restore ;;
-    dotfiles)    bash "$REPO_DIR/setup" ;;
+    kde-restore)   bash "$REPO_DIR/kde/kde-panel" restore ;;
+    handy-restore) bash "$REPO_DIR/handy/handy" restore ;;
+    dotfiles)      bash "$REPO_DIR/setup" ;;
     *)           bash "$SCRIPT_DIR/$script" ;;
   esac
 done
