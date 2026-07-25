@@ -31,6 +31,24 @@
         }
       ],
       "image-path": "steam.png"
+    },
+    {
+      "name": "Steam iPad",
+      "detached": [
+        "setsid steam steam://open/bigpicture"
+      ],
+      "prep-cmd": [
+        {
+          "do": "__HOME__/scripts/sunshine-stream-start.sh 1920 1200 120",
+          "undo": "__HOME__/scripts/sunshine-stream-stop.sh",
+          "elevated": "false"
+        },
+        {
+          "do": "",
+          "undo": "setsid steam steam://close/bigpicture"
+        }
+      ],
+      "image-path": "steam.png"
     }
   ]
 }
