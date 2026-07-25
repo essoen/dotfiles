@@ -9,3 +9,7 @@ Host claude-station glados
 Host 3t
     Hostname 3t.svrstl.io
     User 3t
+
+Host proxstation
+    Hostname 10.0.0.70
+    User root
