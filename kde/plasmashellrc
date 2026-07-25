@@ -1,18 +1,15 @@
-[PlasmaTransientsConfig]
-PreloadWeight=0
-popupHeight=400
-popupWidth=560
-
 [PlasmaViews][Panel 2]
 floating=1
 panelLengthMode=1
 panelVisibility=1
+shell=org.kde.plasma.desktop
 
 [PlasmaViews][Panel 2][Defaults]
 thickness=44
 
 [PlasmaViews][Panel 84]
 floating=0
+shell=org.kde.plasma.desktop
 
 [PlasmaViews][Panel 84][Defaults]
 maxLength=2800

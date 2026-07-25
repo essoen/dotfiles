@@ -5,6 +5,7 @@ RightButton;NoModifier=org.kde.contextmenu
 RightButton;NoModifier=org.kde.contextmenu
 
 [Containments][111]
+ItemGeometries-1920x1080=
 ItemGeometries-1920x1200=
 ItemGeometries-3840x1200=
 ItemGeometriesHorizontal=
@@ -15,6 +16,9 @@ lastScreen=0
 location=0
 plugin=org.kde.plasma.folder
 wallpaperplugin=org.kde.image
+
+[Containments][111][Applets][120][Configuration][Appearance]
+chartFace=org.kde.ksysguard.textonly
 
 [Containments][2]
 activityId=
@@ -34,7 +38,7 @@ DialogHeight=630
 DialogWidth=810
 
 [Containments][2][Applets][113][Configuration][General]
-launchers=applications:systemsettings.desktop,preferred://filemanager,preferred://browser,applications:com.discordapp.Discord.desktop,applications:proton-mail.desktop,applications:QBZ.desktop,applications:org.signal.Signal.desktop,applications:org.kde.konsole.desktop,applications:md.obsidian.Obsidian.desktop,applications:com.todoist.Todoist.desktop
+launchers=applications:systemsettings.desktop,preferred://filemanager,preferred://browser,applications:com.discordapp.Discord.desktop,applications:proton-mail.desktop,applications:org.signal.Signal.desktop,applications:org.kde.konsole.desktop,applications:md.obsidian.Obsidian.desktop,applications:com.todoist.Todoist.desktop
 
 [Containments][2][Applets][3]
 immutability=1
@@ -101,36 +105,17 @@ popupWidth=238
 chartFace=org.kde.ksysguard.piechart
 title=Memory Usage
 
+[Containments][84][Applets][115][Configuration][ConfigDialog]
+DialogHeight=630
+DialogWidth=810
+
 [Containments][84][Applets][115][Configuration][SensorColors]
-memory/physical/used=61,174,233
+memory/physical/used=255,0,0
 
 [Containments][84][Applets][115][Configuration][Sensors]
 highPrioritySensorIds=["memory/physical/used"]
 lowPrioritySensorIds=["memory/physical/total"]
 totalSensors=["memory/physical/usedPercent"]
-
-[Containments][84][Applets][116]
-immutability=1
-plugin=org.kde.plasma.systemmonitor.diskusage
-
-[Containments][84][Applets][116][Configuration]
-CurrentPreset=org.kde.plasma.systemmonitor
-popupHeight=220
-popupWidth=156
-
-[Containments][84][Applets][116][Configuration][Appearance]
-chartFace=org.kde.ksysguard.horizontalbars
-title=Disk Usage
-
-[Containments][84][Applets][116][Configuration][SensorColors]
-disk/225dd04a-a8f3-439b-bd5e-0a44142e68e9/usedPercent=61,174,233
-disk/6a6c82e2-e4c3-44ed-8c73-2c52131f7ec8/usedPercent=233,61,174
-disk/all/usedPercent=174,233,61
-
-[Containments][84][Applets][116][Configuration][Sensors]
-highPrioritySensorIds=["disk/.*/usedPercent"]
-lowPrioritySensorIds=["disk/all/total"]
-totalSensors=["disk/all/usedPercent"]
 
 [Containments][84][Applets][117]
 immutability=1
@@ -138,12 +123,16 @@ plugin=org.kde.plasma.systemmonitor.cpu
 
 [Containments][84][Applets][117][Configuration]
 CurrentPreset=org.kde.plasma.systemmonitor
-popupHeight=195
+popupHeight=203
 popupWidth=187
 
 [Containments][84][Applets][117][Configuration][Appearance]
 chartFace=org.kde.ksysguard.piechart
 title=Total CPU Use
+
+[Containments][84][Applets][117][Configuration][ConfigDialog]
+DialogHeight=630
+DialogWidth=810
 
 [Containments][84][Applets][117][Configuration][SensorColors]
 cpu/all/usage=61,174,233
@@ -152,6 +141,31 @@ cpu/all/usage=61,174,233
 highPrioritySensorIds=["cpu/all/usage"]
 lowPrioritySensorIds=["cpu/all/cpuCount","cpu/all/coreCount"]
 totalSensors=["cpu/all/usage"]
+
+[Containments][84][Applets][120]
+immutability=1
+plugin=org.kde.plasma.systemmonitor
+
+[Containments][84][Applets][120][Configuration]
+CurrentPreset=org.kde.plasma.systemmonitor
+popupHeight=400
+popupWidth=560
+
+[Containments][84][Applets][120][Configuration][Appearance]
+chartFace=org.kde.ksysguard.piechart
+title=GPU
+
+[Containments][84][Applets][120][Configuration][ConfigDialog]
+DialogHeight=630
+DialogWidth=810
+
+[Containments][84][Applets][120][Configuration][SensorColors]
+gpu/all/usage=61,233,97
+
+[Containments][84][Applets][120][Configuration][Sensors]
+highPrioritySensorIds=["gpu/all/usage"]
+lowPrioritySensorIds=["gpu/all/usage"]
+totalSensors=["gpu/all/usage"]
 
 [Containments][84][Applets][89]
 activityId=
@@ -248,7 +262,7 @@ extraItems=org.kde.kdeconnect,org.kde.plasma.bluetooth,org.kde.plasma.cameraindi
 knownItems=org.kde.kdeconnect,org.kde.plasma.bluetooth,org.kde.plasma.cameraindicator,org.kde.plasma.clipboard,org.kde.plasma.keyboardlayout,org.kde.plasma.manage-inputmethod,org.kde.plasma.vault,org.kde.plasma.battery,org.kde.plasma.brightness,org.kde.plasma.networkmanagement,org.kde.plasma.devicenotifier,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.plasma.printmanager,org.kde.plasma.keyboardindicator,org.kde.plasma.weather,org.kde.plasma.volume,org.kde.kscreen
 
 [Containments][84][General]
-AppletOrder=109;104;110;115;117;116;89
+AppletOrder=109;104;110;115;117;120;89
 
 [ScreenMapping]
 itemsOnDisabledScreens=
