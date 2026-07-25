@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Steam (Big Picture, 2880x1200)
+Comment=Steam Big Picture inside gamescope at 2880x1200 (1.5x width, full height) on a 3840x1200 ultrawide
+Exec=gamescope -W 3840 -H 1200 -w 2880 -h 1200 -f -e --xwayland-count 2 -- steam -bigpicture
+Icon=steam
+Terminal=false
+Categories=Game;
+StartupNotify=true
+StartupWMClass=gamescope

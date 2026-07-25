@@ -6,12 +6,14 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 echo "Installing gamescope..."
 sudo dnf install -y gamescope
 
-echo "Symlinking Steam (Big Picture, 1080p) launcher..."
+echo "Symlinking Steam Big Picture (gamescope) launchers..."
 mkdir -p "$HOME/.local/share/applications"
 ln -sf "$SCRIPT_DIR/files/steam-bigpicture-gamescope.desktop" \
        "$HOME/.local/share/applications/steam-bigpicture-gamescope.desktop"
+ln -sf "$SCRIPT_DIR/files/steam-bigpicture-gamescope-2880x1200.desktop" \
+       "$HOME/.local/share/applications/steam-bigpicture-gamescope-2880x1200.desktop"
 
 # Refresh KDE's app cache so the new entry shows up immediately
 command -v kbuildsycoca6 &> /dev/null && kbuildsycoca6 --noincremental || true
 
-echo "Done. Look for 'Steam (Big Picture, 1080p)' in your app launcher."
+echo "Done. Look for 'Steam (Big Picture, ...)' entries in your app launcher."

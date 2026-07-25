@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
-Name=Steam (Big Picture, 1080p)
-Comment=Steam Big Picture inside gamescope, letterboxed to 1920x1080 on a 3840x1200 ultrawide
-Exec=gamescope -W 3840 -H 1200 -w 1920 -h 1080 -f -- steam -bigpicture
+Name=Steam (Big Picture, 1920x1200)
+Comment=Steam Big Picture inside gamescope at 1920x1200 (full height, pillarboxed) on a 3840x1200 ultrawide
+Exec=gamescope -W 3840 -H 1200 -w 1920 -h 1200 -f -e --xwayland-count 2 -- steam -bigpicture
 Icon=steam
 Terminal=false
 Categories=Game;
