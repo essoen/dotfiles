@@ -1,0 +1,13 @@
+#!/bin/bash
+set -euo pipefail
+
+# Proton Drive CLI: no brew formula; download latest binary from Proton's manifest
+PD_URL=$(curl -s https://proton.me/download/drive/cli/version.json | grep -oE 'https://[^"]*darwin-arm64/proton-drive' | head -1)
+if [[ -z "$PD_URL" ]]; then
+  echo "  ⚠ Proton Drive CLI: could not resolve latest download URL — skipping"
+  exit 0
+fi
+
+curl -fsSL "$PD_URL" -o "$(brew --prefix)/bin/proton-drive"
+chmod +x "$(brew --prefix)/bin/proton-drive"
+echo "Proton Drive CLI installed to $(brew --prefix)/bin/proton-drive"

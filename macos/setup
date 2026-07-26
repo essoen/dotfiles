@@ -25,3 +25,9 @@ sh "$(dirname "$0")/../setup"
 
 echo "Installing Claude Code"
 curl -fsSL https://claude.ai/install.sh | bash
+
+# Proton Drive CLI (optional; explicit n/N check since macOS bash 3.2 lacks ${var,,})
+read -rp "Install Proton Drive CLI? [Y/n] " answer
+if [[ "$answer" != "n" && "$answer" != "N" ]]; then
+  bash "$(dirname "$0")/proton-drive-cli"
+fi

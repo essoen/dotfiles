@@ -1,0 +1,14 @@
+#!/bin/bash
+set -euo pipefail
+
+# Proton Drive CLI: no dnf package; download latest binary from Proton's manifest
+PD_URL=$(curl -s https://proton.me/download/drive/cli/version.json | grep -oE 'https://[^"]*linux-x64/proton-drive' | head -1)
+if [[ -z "$PD_URL" ]]; then
+  echo "  ⚠ Proton Drive CLI: could not resolve latest download URL — skipping"
+  exit 0
+fi
+
+mkdir -p "$HOME/.local/bin"
+curl -fsSL "$PD_URL" -o "$HOME/.local/bin/proton-drive"
+chmod +x "$HOME/.local/bin/proton-drive"
+echo "Proton Drive CLI installed to ~/.local/bin/proton-drive"
