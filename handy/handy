@@ -1,0 +1,134 @@
+#!/bin/bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_DIR="$SCRIPT_DIR"
+DATA_DIR="$HOME/.local/share/com.pais.handy"
+APPS_DIR="$HOME/.local/share/applications"
+SETTINGS_FILE=settings_store.json
+PASTE_SCRIPT=handy-paste.sh
+DESKTOP_FILE=net.local.handy.desktop
+OP_ITEM="op://Private/Anthropic API key/credential"
+
+usage() {
+  echo "Usage: $(basename "$0") [backup|restore]"
+  exit 1
+}
+
+# Replace $HOME paths with __HOME__ token so the repo is portable across users.
+to_repo()  { sed "s|$HOME|__HOME__|g"; }
+from_repo() { sed "s|__HOME__|$HOME|g"; }
+
+require_jq() {
+  if ! command -v jq &> /dev/null; then
+    echo "jq is required; install with: sudo dnf install -y jq" >&2
+    exit 1
+  fi
+}
+
+backup() {
+  require_jq
+  mkdir -p "$REPO_DIR"
+  if [[ -f "$DATA_DIR/$SETTINGS_FILE" ]]; then
+    # Always scrub API keys — the repo is public.
+    jq '.settings.post_process_api_keys |= map_values("")' "$DATA_DIR/$SETTINGS_FILE" \
+      | to_repo > "$REPO_DIR/$SETTINGS_FILE"
+    echo "Backed up $SETTINGS_FILE (API keys scrubbed)"
+  else
+    echo "Skipped $SETTINGS_FILE (not found in $DATA_DIR)"
+  fi
+  if [[ -f "$HOME/$PASTE_SCRIPT" ]]; then
+    cp "$HOME/$PASTE_SCRIPT" "$REPO_DIR/$PASTE_SCRIPT"
+    chmod +x "$REPO_DIR/$PASTE_SCRIPT"
+    echo "Backed up $PASTE_SCRIPT"
+  else
+    echo "Skipped $PASTE_SCRIPT (not found in $HOME)"
+  fi
+  if [[ -f "$APPS_DIR/$DESKTOP_FILE" ]]; then
+    cp "$APPS_DIR/$DESKTOP_FILE" "$REPO_DIR/$DESKTOP_FILE"
+    echo "Backed up $DESKTOP_FILE"
+  else
+    echo "Skipped $DESKTOP_FILE (not found in $APPS_DIR)"
+  fi
+  echo "Handy config saved to $REPO_DIR"
+}
+
+inject_api_key() {
+  local key=""
+  read -rp "Inject Anthropic API key from 1Password? [Y/n] " answer
+  if [[ "${answer,,}" != "n" ]]; then
+    local ref
+    read -rp "1Password secret reference [$OP_ITEM]: " ref
+    ref="${ref:-$OP_ITEM}"
+    if command -v op &> /dev/null && key=$(op read "$ref" 2>/dev/null) && [[ -n "$key" ]]; then
+      echo "Fetched key from 1Password"
+    else
+      echo "  ⚠ Could not read $ref (op missing, not signed in, or item not found)"
+      key=""
+    fi
+  fi
+  if [[ -z "$key" ]]; then
+    read -rsp "Enter Anthropic API key (blank to skip): " key
+    echo ""
+  fi
+  if [[ -n "$key" ]]; then
+    local tmp
+    tmp="$(mktemp)"
+    jq --arg k "$key" '.settings.post_process_api_keys.anthropic = $k' \
+      "$DATA_DIR/$SETTINGS_FILE" > "$tmp"
+    mv "$tmp" "$DATA_DIR/$SETTINGS_FILE"
+    echo "Injected Anthropic API key"
+  else
+    echo "No key set; add it in Handy's settings UI to enable post-processing"
+  fi
+}
+
+restore() {
+  require_jq
+  mkdir -p "$DATA_DIR" "$APPS_DIR"
+  if [[ -f "$REPO_DIR/$SETTINGS_FILE" ]]; then
+    from_repo < "$REPO_DIR/$SETTINGS_FILE" > "$DATA_DIR/$SETTINGS_FILE"
+    echo "Restored $SETTINGS_FILE"
+    inject_api_key
+  else
+    echo "Skipped $SETTINGS_FILE (not in repo)"
+  fi
+  if [[ -f "$REPO_DIR/$PASTE_SCRIPT" ]]; then
+    cp "$REPO_DIR/$PASTE_SCRIPT" "$HOME/$PASTE_SCRIPT"
+    chmod +x "$HOME/$PASTE_SCRIPT"
+    echo "Restored $PASTE_SCRIPT -> $HOME"
+  else
+    echo "Skipped $PASTE_SCRIPT (not in repo)"
+  fi
+  if [[ -f "$REPO_DIR/$DESKTOP_FILE" ]]; then
+    cp "$REPO_DIR/$DESKTOP_FILE" "$APPS_DIR/$DESKTOP_FILE"
+    echo "Restored $DESKTOP_FILE -> $APPS_DIR"
+    if command -v kbuildsycoca6 &> /dev/null; then
+      kbuildsycoca6 > /dev/null 2>&1 || true
+    fi
+  else
+    echo "Skipped $DESKTOP_FILE (not in repo)"
+  fi
+
+  if command -v handy &> /dev/null; then
+    if pgrep -x handy > /dev/null; then
+      echo "Restarting Handy..."
+      pkill -x handy
+      sleep 1
+    else
+      echo "Starting Handy..."
+    fi
+    nohup handy > /dev/null 2>&1 &
+  else
+    echo "Handy not installed; install it then re-run restore"
+  fi
+  echo "Handy config restored"
+}
+
+[[ $# -ne 1 ]] && usage
+
+case "$1" in
+  backup)  backup ;;
+  restore) restore ;;
+  *)       usage ;;
+esac
