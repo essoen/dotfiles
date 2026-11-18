@@ -12,7 +12,6 @@ alias g="git grep "
 alias gcheck="git checkout "
 alias gcheckb="git checkout -b"
 
-alias claude="claude --dangerously-skip-permissions"
 alias ping="prettyping --nolegend"
 alias drives="sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL"
 
