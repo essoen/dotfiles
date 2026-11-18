@@ -162,3 +162,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
 export PATH="$HOME/.local/bin:$PATH"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
+
+
+# filen-cli
+PATH=$PATH:~/.filen-cli/bin
