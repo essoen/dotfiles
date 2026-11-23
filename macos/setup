@@ -23,6 +23,14 @@ fi
 echo "Running dotfiles setup..."
 sh "$(dirname "$0")/../setup"
 
+# Dock: auto-hide with no delay, fast slide animation, no app launch bounce
+echo "Configuring Dock..."
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide-delay -float 0
+defaults write com.apple.dock autohide-time-modifier -float 0.1
+defaults write com.apple.dock launchanim -bool false
+killall Dock
+
 echo "Installing Claude Code"
 curl -fsSL https://claude.ai/install.sh | bash
 
